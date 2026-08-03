@@ -73,8 +73,8 @@ with worker counts matched to each band's memory footprint) → a band-seam chec
 → the photocurrent budget.
 
 Repeat for `FASnI3`, `Cu2AgBiI6`, `Cs2AgBiBr6`, or use
-`queue_planar_absorbers.sh` to run all of them back to back. For the textured
-variant set `F3D_TEXTURE=on`.
+`queue_planar_absorbers.sh` to run all of them back to back. All devices in
+this study are planar; `F3D_TEXTURE` is left `off` throughout.
 
 Then produce the generation profile:
 
@@ -137,7 +137,7 @@ interpretable. See Trap 2.
 ## 5. Figures
 
 ```bash
-python3 build_scripts/fig_ieee_main.py     # main text, 5 figures
+python3 build_scripts/fig_ieee_main.py     # main text, 4 figures
 python3 build_scripts/fig_ieee_si.py       # supplementary, 5 figures
 ```
 
@@ -234,7 +234,6 @@ test — including solver and continuation settings, not just physics.
 | Fig. 2, absorptance + budget | `fig_ieee_main.py` | `results/optical/` |
 | Fig. 3, generation profiles | `fig_ieee_main.py` | `results/generation/` |
 | Fig. 4, J–V curves | `fig_ieee_main.py` | `results/jv/` |
-| Fig. 5, texture | `fig_ieee_main.py` | `results/optical/` |
 | Figs. S1–S5 | `fig_ieee_si.py` | as labelled |
 
 ---
