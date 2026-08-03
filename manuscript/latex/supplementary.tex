@@ -1,0 +1,326 @@
+% =====================================================================
+%  IEEE Journal of Photovoltaics -- Supplementary Material
+%  Single-column, since supplements are not typeset in the journal's
+%  two-column body. Same class so fonts and sizes match the manuscript.
+%  BUILD:  ./build.sh supp
+% =====================================================================
+\documentclass[lettersize,journal,onecolumn]{IEEEtran}
+
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{array}
+\usepackage{textcomp}
+\usepackage{url}
+% let long repository URLs break rather than run into the margin
+\def\UrlBreaks{\do\/\do-\do.\do:\do_}
+\Urlmuskip=0mu plus 1mu\relax
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage[margin=1in]{geometry}
+
+\newif\ifedits
+\editstrue          % <-- \editsfalse strips every editorial note
+\newcommand{\edit}[1]{\ifedits{\color{red}\textbf{[#1]}}\fi}
+
+\newcommand{\FASnI}{FASnI\textsubscript{3}}
+\newcommand{\CABI}{Cu\textsubscript{2}AgBiI\textsubscript{6}}
+\newcommand{\BZS}{BaZrS\textsubscript{3}}
+\newcommand{\CABB}{Cs\textsubscript{2}AgBiBr\textsubscript{6}}
+\newcommand{\TiOx}{TiO\textsubscript{2}}
+\newcommand{\percm}{\,mA\,cm\textsuperscript{$-$2}}
+
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thesection}{S\arabic{section}}
+
+\begin{document}
+
+\title{Supplementary Material\\
+\large Interface Band Offsets, Not Optical Collection, Limit Four Chemically
+Distinct Lead-Free Absorbers}
+\author{Md.~Mohiuddin and Alamgir~Kabir}
+\maketitle
+
+\section{Supplementary Figures}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{figures_si/figS1_optical_replacement.pdf}
+\caption{\textbf{Optical-constant replacements.} Extinction coefficient $k$ of
+(a)~\FASnI{} and (b)~\BZS. (a)~The previous \FASnI{} file was assembled by
+splicing two pixel-traced figures from the same publication at $1.70\,$eV.
+Across that $5\,\mathrm{nm}$ join $k$ falls $0.4263\rightarrow0.0792$, a
+$5.8\times$ discontinuity, after which it sits nearly flat to $850\,$nm,
+behaviour no direct-gap absorber exhibits. It is replaced by the tabulated
+dielectric function from the same paper's supplementary information (695
+points, point-by-point inversion of measured ellipsometry). (b)~The previous
+\BZS{} file was a Kramers--Kronig reconstruction of a \emph{computed}
+$\varepsilon_2$ hard-zeroed at $690\,$nm, cutting from
+$\alpha = 2.6\times10^{4}\,\mathrm{cm^{-1}}$ directly to zero while the stated
+band edge lay at $708\,$nm. It is replaced by the measured ellipsometric
+dielectric function.}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{figures_si/figS2_validation.pdf}
+\caption{\textbf{Validation.} (a)~Per-wavelength energy-budget residual for all
+four absorbers against the $\pm2\,\%$ acceptance band; the worst value across
+244 solves is $-1.43\,\%$, at $300\,$nm, the finest mesh in the study.
+(b)~Band-seam agreement: wavelengths at the $400$ and $600\,$nm band
+boundaries solved on both neighbouring meshes, which are generated
+independently. Agreement is $0.020$--$0.096\,\%$. This is the check that
+detects the Floquet periodic-mesh defect of Section~S3; the energy residual
+does not.}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{figures_si/figS3_subgap_cu2agbii6.pdf}
+\caption{\textbf{\CABI{} sub-gap absorption.} (a)~Absorber absorptance with the
+$2.06\,$eV Tauc gap marked; the shaded region is sub-gap. (b)~Decomposition of
+the $15.083$\percm{} optical ceiling by spectral region. $61.8\,\%$ lies above
+the Tauc gap; $28.9\,\%$ is an Urbach-like tail with characteristic energy
+$\approx88\,$meV; $3.3\,\%$ a weak tail; and $6.0\,\%$ ($0.908$\percm) arises
+where $\alpha$ stops decaying and sits flat at
+$\approx2.7\times10^{3}\,\mathrm{cm^{-1}}$ for $130\,$nm before stepping to
+zero at $886\,$nm, a construction artifact of the optical file rather than a
+physical tail.}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{figures_si/figS4_voc_grid_cu2agbii6.pdf}
+\caption{\textbf{\CABI{} open-circuit voltage is not grid-converged.} (a)~$J$--$V$
+on a mixed $1$--$25\,\mathrm{mV}$ continuation grid versus a uniform
+$1\,\mathrm{mV}$ grid. The curves are identical through the maximum power
+point ($P_\mathrm{max}=9.9126\,\mathrm{mW\,cm^{-2}}$,
+$V_\mathrm{mpp}=0.786\,$V, $J_\mathrm{mpp}=12.612$\percm, to five significant
+figures). (b)~Magnified pre-$V_\mathrm{oc}$ tail: the curves diverge only
+beyond $\approx1.3\,$V where $J<0.2$\percm{} and the characteristic is nearly
+flat, so a $0.08$\percm{} difference moves the zero crossing from $1.512\,$V
+to $1.379\,$V.}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{figures_si/figS5_brad_bazrs3.pdf}
+\caption{\textbf{\BZS{} radiative coefficient.} (a)~van Roosbroeck--Shockley
+$B_\mathrm{rad}$ as a function of the lower integration limit, for the
+previous and present optical constants. The previously used value,
+$2.335\times10^{-9}\,\mathrm{cm^3\,s^{-1}}$, corresponds to the old optics
+integrated from $1.75\,$eV, whereas $n_i^2$ in the same model is built from
+$E_g=1.88\,$eV, an internal inconsistency making it $\approx12\times$ too
+large even on its own data. Evaluated consistently at $1.88\,$eV on the
+measured optics, $B_\mathrm{rad}=5.37\times10^{-12}\,\mathrm{cm^3\,s^{-1}}$.
+(b)~Device $J$--$V$ with both coefficients: a $435\times$ change moves
+$V_\mathrm{oc}$ by $3\,$mV, establishing that \BZS's $V_\mathrm{oc}$ is not
+radiatively limited.}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{figures_si/figS6_generation_map.pdf}
+\caption{\textbf{Depth- and wavelength-resolved generation.} Absorbed power
+density $Q_h(z,\lambda)$ through the $300\,$nm absorber under unit incident
+field, plotted from the illuminated face. Each absorber's band edge is
+directly visible as the wavelength beyond which generation ceases:
+$\approx880\,$nm for \FASnI, $\approx700\,$nm for \CABI{} with its sub-gap
+tail continuing weakly to $900\,$nm, $\approx660\,$nm for \BZS, and
+$\approx570\,$nm for \CABB. The diagonal fringes are Fabry--P\'erot
+interference in the finite-thickness stack, which a Beer--Lambert treatment
+cannot reproduce. The contrast between panels explains the collection
+behaviour reported in the main text: \FASnI{} generates strongly across the
+full depth, so an optical improvement that front-loads generation moves
+carriers into a region it collects less efficiently, whereas \CABB{} generates
+only in a narrow band near the illuminated face regardless.}
+\end{figure}
+
+\clearpage
+\section{Device architecture and parameter provenance}
+
+The stack is fixed for all four devices: glass / FTO ($600\,$nm) / \TiOx{}
+($50\,$nm) / absorber ($300\,$nm) / Spiro-OMeTAD ($200\,$nm) / Au. The optical
+unit cell is $350\times350\,\mathrm{nm}^2$ with Floquet periodicity on all
+lateral faces.
+
+\textbf{Provenance codes.} \textbf{[EXP]} experimental; \textbf{[THEO]}
+computed, level stated; \textbf{[SIM-LIT]} from published device simulations;
+\textbf{[DERIVED]} computed here from literature inputs by a stated
+parameter-free relation; \textbf{[SWEPT]} treated as a sensitivity axis.
+
+\begin{table}[!ht]
+\caption{Absorber parameters}
+\centering\small
+\begin{tabular}{lllllc}
+\toprule
+Quantity & \BZS & \FASnI & \CABB & \CABI & Status \\
+\midrule
+$E_g$ (eV)        & 1.88 & 1.41 & 2.32 & 2.06 & [THEO]/[EXP] \\
+$\chi$ (eV)       & 4.1  & 3.50 & 4.0  & 3.22 & \textbf{[SWEPT]} \\
+$m_e^*/m_0$       & 0.3  & --   & 0.33 & --   & [THEO] \\
+$m_h^*/m_0$       & 0.9  & --   & 0.84 & --   & [THEO] \\
+$\tau_\mathrm{SRH}$ & 1/33\,ns & 43/123\,ns & 13.7\,ns/1\,$\mu$s & 33/3.3\,ns & \textbf{[SWEPT]} \\
+$\varepsilon_r$   & --   & 8.2/6/10 & 5.8/3.54 & 6.3/12 & \textbf{[SWEPT]} \\
+$\mu$ (cm$^2$V$^{-1}$s$^{-1}$) & -- & 67/22 & 0.57/6 & 1.7/5.1 & \textbf{[SWEPT]} \\
+$B_\mathrm{rad}$ (cm$^3$s$^{-1}$) & $\mathbf{5.37{\times}10^{-12}}$ & $7.99{\times}10^{-8}$ & $3.19{\times}10^{-12}$ & -- & \textbf{[DERIVED]} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Gap consistency across the three roles a gap plays}
+A band gap is used in three distinct roles here (the transport model's
+$n_i^2$, the detailed-balance ceiling, and the absorption onset of the optical
+constants) and these are not automatically the same number. Measured directly
+from the computed spectra:
+
+\begin{table}[!ht]
+\caption{Band gap used in each role, and the resulting spread}
+\centering\small
+\begin{tabular}{lrrrr}
+\toprule
+Absorber & transport $n_i^2$ & DB ceiling & optical onset & spread \\
+\midrule
+\FASnI & 1.41 & 1.41 & 1.39 & 0.02\,eV \\
+\BZS   & 1.88 & 1.94 & 1.88 & 0.06\,eV \\
+\CABB  & 2.32 & 2.10 & 2.21 & \textbf{0.22\,eV} \\
+\CABI  & 2.06 & 2.06 & 1.41 & \textbf{0.65\,eV} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\FASnI{} and \BZS{} are consistent. \textbf{\CABB{} is not}: its HSE06
+transport gap ($2.32\,$eV), the $2.10\,$eV used for its detailed-balance
+ceiling, and the $2.21\,$eV onset of its own optical constants disagree by up
+to $0.22\,$eV. The device consequence is small, only $2.9\,\%$ of its
+photocurrent coming from photons below the $2.32\,$eV transport gap, but the
+three values should be reconciled or the choice for each role stated
+explicitly. \textbf{\CABI's $0.65\,$eV spread is by construction}, since its
+optical file carries a deliberate sub-gap tail to $1.40\,$eV; the consequence
+there is material and is discussed in the main text.
+
+\textbf{A reproducibility caution.} The HTL acceptor doping is
+$1\times10^{18}\,\mathrm{cm^{-3}}$ in the saved model but
+$1\times10^{19}\,\mathrm{cm^{-3}}$ in the build script that nominally creates
+it; a later stage changed the value and only the model file records it.
+Restoring device parameters from the build script rather than the model yields
+$J_\mathrm{sc}=12.095$\percm{} and $\mathrm{FF}=0.381$ for \BZS{} instead of
+$11.846$ and $0.340$. Parameters must be read back from the saved model.
+
+\section{The Floquet periodic-mesh defect}
+Floquet periodic boundary conditions require the paired faces of the unit cell
+to carry \textbf{identical surface meshes}. A free-tetrahedral mesher does not
+produce this. The solver does not raise an error; it interpolates across the
+mismatch, and the computed per-layer absorption depends on the particular mesh
+realization. Measured on this stack at $700\,$nm:
+
+\begin{table}[!ht]
+\caption{Absorber absorptance versus mesh realization, before the fix}
+\centering\small
+\begin{tabular}{rr}
+\toprule
+Elements & $A_\mathrm{absorber}$ \\
+\midrule
+120\,153 & 0.719 \\
+120\,346 & 0.663 \\
+123\,031 & 0.463 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A $36\,\%$ swing for a $2.5\,\%$ change in element count. The remedy is to
+mesh $x=0$ with a free-triangular operation, copy that mesh onto $x=L$, repeat
+for $y$, and only then fill with tetrahedra; feature order matters because the
+$x$ and $y$ faces share the cell's vertical edges. After the fix the same
+comparison gives $0.783103$ versus $0.782888$ ($0.03\,\%$), and the energy
+budget closes to $0.03\,\%$ instead of $1.2\,\%$.
+
+\textbf{The energy-conservation residual does not detect this defect.} It
+compares total absorbed power against total incident flux and is insensitive
+to how that total is partitioned between layers, which is precisely what the
+photocurrent depends on. Detection requires either a mesh-versus-mesh
+comparison or a tangential-field equality check on the paired faces (which
+reaches $0.00000\,\%$ after the fix). Two traps arise in the latter: compare
+the \emph{tangential} field components, not $|E|$, because the normal
+component sampled on a face is interpolated from whichever side the evaluator
+picks; and expect the $x$ and $y$ pairs to differ, because the incident wave
+is $x$-polarized.
+
+\section{Numerical procedure}
+\textbf{Wavelength banding.} Element count scales as $\lambda^{-3}$, so meshes
+are generated per band: $300$--$390$, $400$--$590$, $600$--$900\,$nm. Element
+size is $\lambda/(n_\mathrm{eff}\,\mathrm{ppw})$ with
+$n_\mathrm{eff}=|\tilde{n}|$, subject to a skin-depth clamp and a floor of
+three elements across any layer thickness. The wavelength-independent cap is
+applied only to air and the perfectly matched layer, never to the absorber.
+
+\textbf{Two independent photocurrent routes.} The depth integral of $G(z)$ and
+the spectral integral of layer absorptance are computed separately and
+compared every run. They share the solve but nothing else. Agreement across
+the four absorbers is $+0.05$, $+0.03$, $-0.04$, $+0.04\,\%$.
+
+\textbf{AM1.5G quadrature.} Irradiance is integrated over each wavelength bin
+rather than sampled at bin centres, and the outer bin edges are clamped to the
+grid endpoints. Bin-centre sampling biased the result by $\approx10\,\%$ and
+unclamped edges by a further $+23\,\%$ on a coarse grid; both are quadrature
+errors rather than physics, and both were exposed by the two-route comparison.
+
+\textbf{Bias continuation.} For \CABI{} a $25\,$mV grid converges onto spurious
+S-shaped negative-differential-resistance branches reporting $\mathrm{FF}=4.13$
+and $\mathrm{PCE}=86.6\,\%$; a $1\,$mV grid removes them. Only dense results
+are quoted for that absorber. The artifact is reproducible rather than
+stochastic.
+
+\begin{table}[!ht]
+\caption{Validation ledger}
+\centering\small
+\begin{tabular}{lrrrr}
+\toprule
+Check & \FASnI & \CABI & \BZS & \CABB \\
+\midrule
+Optical budget closure       & $-0.00\,\%$ & $+0.00\,\%$ & $+0.00\,\%$ & $+0.00\,\%$ \\
+Worst energy residual        & $-1.36\,\%$ & $-1.39\,\%$ & $-1.43\,\%$ & $-1.35\,\%$ \\
+$G(z)$ vs spectrum           & $+0.05\,\%$ & $+0.03\,\%$ & $+0.04\,\%$ & $-0.04\,\%$ \\
+Band seam, $400\,$nm         & $0.070\,\%$ & $0.079\,\%$ & $0.075\,\%$ & $0.096\,\%$ \\
+Band seam, $600\,$nm         & $0.023\,\%$ & $0.020\,\%$ & $0.020\,\%$ & $0.000\,\%$ \\
+Control reproduces published & exact & exact & exact & exact \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Optical model limitations}
+\textbf{Lossless transport layers.} \TiOx{} is modeled with a Sellmeier real
+index clamped below $400\,$nm (its $283\,$nm pole otherwise returns $n=5.58$
+at the blue end of the grid), and Spiro-OMeTAD with a constant $n=1.75$; both
+carry $k=0$. Their budget entries are therefore exactly zero and all front
+parasitic absorption is attributed to the FTO. \TiOx{} genuinely absorbs below
+its $\approx390\,$nm edge, so UV generation in the absorber is slightly
+overestimated. The treatment is identical for all four devices, so relative
+comparisons are unaffected.
+
+\textbf{FTO.} Previously modeled with a fabricated flat $k=0.02$; here it uses
+measured SnO$_2$:F dispersion.
+
+\textbf{Gold contact.} Truncated to $45\,$nm in the optical model, more than
+three skin depths at all wavelengths considered and backed by a perfect
+electric conductor, while the transport model retains the full $80\,$nm. The
+generation profile is therefore shifted by $35\,$nm when handed to the
+transport stage, and both frames are provided in the archive.
+
+\section{Interface recombination}
+No experimental interface-recombination velocity exists for any of these
+absorber/transport-layer pairs. Rather than assign one, $S$ is swept over
+$10^2$, $10^4$ and $10^6\,\mathrm{cm\,s^{-1}}$ with all other parameters at
+their base values. The efficiencies in the main text correspond to
+defect-free interfaces ($S=0$) and are therefore upper bounds.
+
+\section{Data and code availability}
+All inputs, scripts, results and figure code are archived at\\
+{\footnotesize\url{https://github.com/mohiuddinsciencelover-glitch/leadfree-pv-3d-simulation}}
+\texttt{REPRODUCE.md} documents the pipeline end to end, including the four
+traps that cost significant time during development: the periodic-mesh defect,
+the build-script/model parameter divergence, the \CABI{} continuation-grid
+artifact, and the two AM1.5G quadrature errors.
+
+\end{document}
