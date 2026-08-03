@@ -1,0 +1,27 @@
+{
+  "profile": "dryrun",
+  "absorber": "FASnI3",
+  "band": 2,
+  "band_range": [
+    600.0,
+    900.0
+  ],
+  "lam_ref": 600.0,
+  "ppw": 5.0,
+  "sizes": {
+    "au": 15.0,
+    "htl": 66.667,
+    "abs": 25.044,
+    "etl": 16.667,
+    "fto": 62.059,
+    "air": 48.0,
+    "pml": 48.0
+  },
+  "n_elem": 137043,
+  "min_quality": 0.156,
+  "mesh_seconds": 3.5,
+  "lambdas": [
+    700.0,
+    850.0
+  ]
+}
