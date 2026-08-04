@@ -49,7 +49,7 @@ Distinct Lead-Free Absorbers}
 \includegraphics[width=\textwidth]{figures_si/figS1_optical_replacement.pdf}
 \caption{\textbf{Optical-constant replacements.} Extinction coefficient $k$ of
 (a)~\FASnI{} and (b)~\BZS. (a)~The previous \FASnI{} file was assembled by
-splicing two pixel-traced figures from the same publication at $1.70\,$eV.
+splicing two pixel-traced figures from the same publication~\cite{ghimire2017} at $1.70\,$eV.
 Across that $5\,\mathrm{nm}$ join $k$ falls $0.4263\rightarrow0.0792$, a
 $5.8\times$ discontinuity, after which it sits nearly flat to $850\,$nm,
 behaviour no direct-gap absorber exhibits. It is replaced by the tabulated
@@ -59,7 +59,7 @@ points, point-by-point inversion of measured ellipsometry). (b)~The previous
 $\varepsilon_2$ hard-zeroed at $690\,$nm, cutting from
 $\alpha = 2.6\times10^{4}\,\mathrm{cm^{-1}}$ directly to zero while the stated
 band edge lay at $708\,$nm. It is replaced by the measured ellipsometric
-dielectric function.}
+dielectric function~\cite{nishigaki2020}.}
 \end{figure}
 
 \begin{figure}[!ht]
@@ -137,6 +137,21 @@ carriers into a region it collects less efficiently, whereas \CABB{} generates
 only in a narrow band near the illuminated face regardless.}
 \end{figure}
 
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{figures_si/figS7_tmm_crosscheck.pdf}
+\caption{\textbf{Transfer-matrix verification of the electromagnetic solver.}
+Absorber absorptance from the finite-element solve (open circles) against an
+independent scalar transfer-matrix calculation with identical optical inputs
+and identical geometry (solid lines), for all four absorbers. Worst-case
+disagreement across all $4\times61$ solves is $7\times10^{-4}$ in
+absorptance and $0.02\,\%$ in AM1.5G photocurrent. For \CABB{} the dashed
+curve shows the thick-contact (semi-infinite Au) limit: the visible departure
+in the $430$--$570\,$nm window is the back-contact truncation artifact of
+Section~S4, which the identical-geometry agreement isolates as geometric
+rather than numerical.}
+\end{figure}
+
 \clearpage
 \section{Device architecture and parameter provenance}
 
@@ -144,6 +159,15 @@ The stack is fixed for all four devices: glass / FTO ($600\,$nm) / \TiOx{}
 ($50\,$nm) / absorber ($300\,$nm) / Spiro-OMeTAD ($200\,$nm) / Au. The optical
 unit cell is $350\times350\,\mathrm{nm}^2$ with Floquet periodicity on all
 lateral faces.
+
+\textbf{Sources.} Absorber optics: \FASnI~\cite{ghimire2017},
+\CABI~\cite{kamppinen2026,sansom2021}, \BZS~\cite{nishigaki2020},
+\CABB~\cite{eddekkar2024}. Gaps and masses: \BZS~\cite{kumar2021},
+\CABB~\cite{eddekkar2024,filip2016}. Lifetimes: \BZS~\cite{yuan2024}.
+\FASnI{} electron affinity: experimental UPS~\cite{wu2022chi}, with the
+$4.0$\,eV sweep endpoint from~\cite{scaps_fasni3}. Transport layers:
+\cite{rahman2023,usman2024}. Contact optics: FTO~\cite{vonrottkay1996},
+\TiOx~\cite{devore1951}, Au~\cite{mcpeak2015}.
 
 \textbf{Provenance codes.} \textbf{[EXP]} experimental; \textbf{[THEO]}
 computed, level stated; \textbf{[SIM-LIT]} from published device simulations;
@@ -193,7 +217,7 @@ Absorber & transport $n_i^2$ & DB ceiling & optical onset & spread \\
 \FASnI{} and \BZS{} are consistent. \textbf{\CABB{} is not}: its HSE06
 transport gap ($2.32\,$eV), the $2.10\,$eV used for its detailed-balance
 ceiling, and the $2.21\,$eV onset of its own optical constants disagree by up
-to $0.22\,$eV. The device consequence is small, only $2.9\,\%$ of its
+to $0.22\,$eV. The device consequence is small, only ${\approx}3\,\%$ of its
 photocurrent coming from photons below the $2.32\,$eV transport gap, but the
 three values should be reconciled or the choice for each role stated
 explicitly. \textbf{\CABI's $0.65\,$eV spread is by construction}, since its
@@ -207,6 +231,33 @@ it; a later stage changed the value and only the model file records it.
 Restoring device parameters from the build script rather than the model yields
 $J_\mathrm{sc}=12.095$\percm{} and $\mathrm{FF}=0.381$ for \BZS{} instead of
 $11.846$ and $0.340$. Parameters must be read back from the saved model.
+
+\section{The back-contact truncation artifact in \CABB}
+The optical model truncates the Au contact at $45\,$nm backed by a perfect
+electric conductor -- a deliberate cost measure, justified by Au's
+$12$--$17\,$nm near-infrared skin depth (three-plus skin depths of metal,
+below $10^{-6}$ returning power). The justification fails in one window: Au's
+interband damping dips near $450$--$570\,$nm, roughly doubling the skin
+depth, and \CABB{} is the one absorber nearly transparent exactly there.
+Light reaches the back contact, and the PEC backing returns an unphysically
+strong wave: at $510\,$nm the truncated geometry gives $R = 0.469$ while
+realistically thick Au gives $R = 0.292$. The other three absorbers
+extinguish this window before it reaches the contact and agree with the
+thick-contact limit to $\leq0.35\,\%$ in photocurrent.
+
+The correction uses the transfer-matrix method of Fig.~S7, which is exact for
+this planar stack and validated against the finite-element solver to
+$7\times10^{-4}$ on identical geometry. Three gates were passed in order:
+(i) the PEC-geometry TMM reproduces the FEM absorptance spectrum to
+$9\times10^{-4}$; (ii) the same pipeline reproduces the FEM generation
+profile $G(z)$, including the AM1.5G bin weighting, to $0.10\,\%$ with
+identical photocurrent; (iii) only then was the thick-contact spectrum and
+$G(z)$ emitted and the \CABB{} transport re-solved on it. Corrected numbers:
+ceiling $2.546\rightarrow2.440$\percm{} ($-4.2\,\%$), device
+$J_\mathrm{sc}$ $2.473\rightarrow2.371$\percm, PCE
+$1.22\rightarrow1.17\,\%$; collection is unchanged ($97.2\,\%$). The
+$45\,$nm-truncation figure of $2.546$ appears nowhere in the main text
+except as the disclosed pre-correction value.
 
 \section{The Floquet periodic-mesh defect}
 Floquet periodic boundary conditions require the paired faces of the unit cell
@@ -285,6 +336,7 @@ $G(z)$ vs spectrum           & $+0.05\,\%$ & $+0.03\,\%$ & $+0.04\,\%$ & $-0.04\
 Band seam, $400\,$nm         & $0.070\,\%$ & $0.079\,\%$ & $0.075\,\%$ & $0.096\,\%$ \\
 Band seam, $600\,$nm         & $0.023\,\%$ & $0.020\,\%$ & $0.020\,\%$ & $0.000\,\%$ \\
 Control reproduces published & exact & exact & exact & exact \\
+TMM vs FEM, max $|\Delta A|$ (identical geometry) & $7.0\times10^{-4}$ & $6.2\times10^{-4}$ & $5.9\times10^{-4}$ & $6.5\times10^{-4}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -318,9 +370,13 @@ defect-free interfaces ($S=0$) and are therefore upper bounds.
 \section{Data and code availability}
 All inputs, scripts, results and figure code are archived at\\
 {\footnotesize\url{https://github.com/mohiuddinsciencelover-glitch/leadfree-pv-3d-simulation}}
-\texttt{REPRODUCE.md} documents the pipeline end to end, including the four
+\texttt{REPRODUCE.md} documents the pipeline end to end, including the five
 traps that cost significant time during development: the periodic-mesh defect,
 the build-script/model parameter divergence, the \CABI{} continuation-grid
-artifact, and the two AM1.5G quadrature errors.
+artifact, the two AM1.5G quadrature errors, and the Au-truncation artifact of
+Section~S4.
+
+\IfFileExists{IEEEtran.bst}{\bibliographystyle{IEEEtran}}{\bibliographystyle{ieeetr}}
+\bibliography{references}
 
 \end{document}

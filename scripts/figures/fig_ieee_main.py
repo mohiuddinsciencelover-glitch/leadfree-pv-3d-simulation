@@ -44,13 +44,13 @@ DEV = {
     'FASnI3':     dict(old=(14.740, 0.987, 0.5173, 7.521), new=(15.811, 0.988, 0.5090, 7.948)),
     'Cu2AgBiI6':  dict(old=(13.856, 1.379, 0.5190, 9.909), new=(15.017, 1.384, 0.5176, 10.757)),
     'BaZrS3':     dict(old=(11.846, 1.341, 0.3398, 5.395), new=(9.883, 1.337, 0.3395, 4.484)),
-    'Cs2AgBiBr6': dict(old=(2.010, 1.710, 0.2865, 0.984), new=(2.473, 1.766, 0.2803, 1.224)),
+    'Cs2AgBiBr6': dict(old=(2.010, 1.710, 0.2865, 0.984), new=(2.371, 1.760, 0.2807, 1.170)),
 }
 JV = {  # control (old G(z)) and treatment (new G(z)) curve files
     'FASnI3':     ('results/jv_f3dctrl_fasni3_light_base.csv', 'results/jv_f3d_fasni3_light_base.csv'),
     'Cu2AgBiI6':  ('results/jv_f3dctrl_cabi_light_base_dense.csv', 'results/jv_f3d_cabi_light_base_dense.csv'),
     'BaZrS3':     ('results/jv_ctrl2_spiroTE_light_chi4p1_tau1ns.csv', 'results/jv_f3d_spiroTE_light_chi4p1_tau1ns.csv'),
-    'Cs2AgBiBr6': ('results/jv_f3dctrl_cs_light_base.csv', 'results/jv_f3d_cs_light_base.csv'),
+    'Cs2AgBiBr6': ('results/jv_f3dctrl_cs_light_base.csv', 'results/jv_f3d_cs_light_base_au80corr.csv'),
 }
 AREA = (350e-9) ** 2
 
@@ -59,9 +59,14 @@ def p(*a):
     return os.path.join(ROOT, *a)
 
 
+# Cs2AgBiBr6 uses the thick-Au corrected spectrum (stage 60); the FEM file
+# carries the documented back-contact truncation artifact for that absorber.
+SPEC_FILE = {A: f'f3d_{A}_absorptance_production_planar.csv' for A in ABS}
+SPEC_FILE['Cs2AgBiBr6'] = 'f3d_Cs2AgBiBr6_absorptance_production_planar_au80corr.csv'
+
+
 def spectrum(A):
-    rows = list(csv.DictReader(open(p('full3d/results',
-                f'f3d_{A}_absorptance_production_planar.csv'))))
+    rows = list(csv.DictReader(open(p('full3d/results', SPEC_FILE[A]))))
     rows.sort(key=lambda r: float(r['lambda_nm']))
     out = {'lambda_nm': np.array([float(r['lambda_nm']) for r in rows])}
     for k in ('A_absorber', 'A_FTO_total', 'A_TiO2', 'A_HTL', 'A_Au',
@@ -191,9 +196,10 @@ def fig_generation():
             kw['dashes'] = list(d)
         o = np.loadtxt(p(OLDG[A]), delimiter=',', skiprows=1)
         axs[0].semilogy((o[:, 0] * 1e9 - 280), o[:, 1], **kw)
-        nw = np.loadtxt(p('full3d/results',
-                          f'f3d_{A}_planar_Gz_AM15G_forTransport.csv'),
-                        delimiter=',', skiprows=1)
+        gzf = (f'f3d_{A}_planar_Gz_AM15G_forTransport.csv'
+               if A != 'Cs2AgBiBr6' else
+               'f3d_Cs2AgBiBr6_planar_Gz_AM15G_au80corr_forTransport.csv')
+        nw = np.loadtxt(p('full3d/results', gzf), delimiter=',', skiprows=1)
         axs[1].semilogy((nw[:, 0] * 1e9 - 280), nw[:, 1], label=PRETTY[A], **kw)
     for a, t in zip(axs, ['Previous optics', 'This work']):
         a.set_xlabel('Depth from HTL interface (nm)')
@@ -239,62 +245,9 @@ def fig_jv():
     plt.close(fig)
 
 
-# ====================================================== Fig 5: texture (FASnI3)
-def fig_texture():
-    tex = p('full3d/results/f3d_FASnI3_absorptance_production.csv')
-    if not os.path.exists(tex):
-        print('  (skipping fig5: textured spectrum absent)')
-        return
-    rows = list(csv.DictReader(open(tex)))
-    rows.sort(key=lambda r: float(r['lambda_nm']))
-    lam = np.array([float(r['lambda_nm']) for r in rows])
-    T = {k: np.array([float(r[k]) for r in rows])
-         for k in ('A_absorber', 'A_FTO_total', 'R_implied')}
-    P = spectrum('FASnI3')
-
-    fig, axs = plt.subplots(1, 2, figsize=(S.COL2, 2.5), constrained_layout=True)
-    for k, sl, lb in [('A_absorber', 0, 'Absorber'),
-                      ('A_FTO_total', 1, 'FTO parasitic'),
-                      ('R_implied', 5, 'Reflected')]:
-        axs[0].plot(P['lambda_nm'], P[k], color=S.PALETTE[sl], lw=1.0,
-                    dashes=[4, 1.5])
-        axs[0].plot(lam, T[k], color=S.PALETTE[sl], lw=1.2, label=lb)
-    axs[0].set_xlabel('Wavelength (nm)'); axs[0].set_ylabel('Fraction')
-    axs[0].set_xlim(300, 900); axs[0].set_ylim(0, 1)
-    axs[0].grid(True, color=S.GRID, lw=0.4)
-    axs[0].legend(frameon=False, fontsize=6.5, loc='upper right')
-    axs[0].text(0.03, 0.06, 'dashed: planar   solid: textured',
-                transform=axs[0].transAxes, fontsize=6.5, color=S.INK_2,
-                style='italic')
-
-    # where the recovered light goes
-    dR = jflux(P['lambda_nm'], P['R_implied']) - jflux(lam, T['R_implied'])
-    dA = jflux(lam, T['A_absorber']) - jflux(P['lambda_nm'], P['A_absorber'])
-    dF = jflux(lam, T['A_FTO_total']) - jflux(P['lambda_nm'], P['A_FTO_total'])
-    axs[1].bar([0], [dR], 0.5, color=S.PALETTE[5], label='Recovered from reflection')
-    axs[1].bar([1], [dA], 0.5, color=S.PALETTE[0], label='To absorber')
-    axs[1].bar([1], [dF], 0.5, bottom=[dA], color=S.PALETTE[1],
-               label='Re-absorbed by FTO')
-    for xx, yy, tt in [(0, dR / 2, f'{dR:.2f}'), (1, dA / 2, f'{dA:.2f}'),
-                       (1, dA + dF / 2, f'{dF:.2f}')]:
-        axs[1].text(xx, yy, tt, ha='center', va='center', fontsize=7,
-                    color='white', fontweight='bold')
-    axs[1].set_xticks([0, 1]); axs[1].set_xticklabels(['Reflection\nsaved', 'Where it\ngoes'])
-    axs[1].set_ylabel(r'$\Delta$ photocurrent (mA cm$^{-2}$)')
-    axs[1].legend(frameon=False, fontsize=6.5, loc='upper center')
-    axs[1].grid(True, axis='y', color=S.GRID, lw=0.4)
-    axs[1].set_ylim(0, 1.5 * dR)
-    panel_label(axs[0], '(a)'); panel_label(axs[1], '(b)')
-    S.save(fig, os.path.join(OUT, 'fig5_texture'))
-    plt.close(fig)
-    print(f'  texture split: recovered {dR:.3f}, to absorber {dA:.3f} '
-          f'({100*dA/dR:.0f}%), to FTO {dF:.3f} ({100*dF/dR:.0f}%)')
-
-
 if __name__ == '__main__':
     fig_optical_inputs();      print('fig1 optical inputs      OK')
     fig_absorptance_budget();  print('fig2 absorptance+budget  OK')
     fig_generation();          print('fig3 generation          OK')
     fig_jv();                  print('fig4 J-V                 OK')
-    fig_texture();             print('fig5 texture             OK')
     print(f'-> {OUT}')

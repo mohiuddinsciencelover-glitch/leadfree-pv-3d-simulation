@@ -139,6 +139,8 @@ interpretable. See Trap 2.
 ```bash
 python3 build_scripts/fig_ieee_main.py     # main text, 4 figures
 python3 build_scripts/fig_ieee_si.py       # supplementary, 5 figures
+python3 build_scripts/fig_ieee_extra.py    # band alignment (main) + G(z,lambda) map (SI)
+python3 build_scripts/build_docx.py        # IEEE-typography .docx of both documents
 ```
 
 Both read the result CSVs directly. Figures are drawn at IEEE printed size
@@ -212,6 +214,19 @@ Two errors, both pure quadrature, together worth ~30 %:
 Both were found only by comparing two independent routes to the same
 photocurrent. Build that redundant check first.
 
+### Trap 5 — the Au back-contact truncation is not universally harmless
+
+The optical model truncates Au at 45 nm over a PEC, justified by the
+12–17 nm NIR skin depth. Au's interband damping dips near 450–570 nm
+(roughly doubling the skin depth), and any absorber transparent in that
+window lets light reach the contact, where the PEC returns an unphysically
+strong wave. For Cs₂AgBiBr₆ this inflated the ceiling by 4.3 % (measured:
+R = 0.469 truncated vs 0.292 thick-Au at 510 nm). Caught only by
+`build_scripts/tmm_crosscheck.py`, the identical-geometry transfer-matrix
+verification; corrected via `build_scripts/stage60_cabb_au_correction.py`,
+whose three validation gates must pass before its output is trusted. The
+other three absorbers extinguish this window first (≤0.35 % effect).
+
 ### General rule
 
 Every defect found in this project produced plausible output — correct shape,
@@ -235,6 +250,8 @@ test — including solver and continuation settings, not just physics.
 | Fig. 3, generation profiles | `fig_ieee_main.py` | `results/generation/` |
 | Fig. 4, J–V curves | `fig_ieee_main.py` | `results/jv/` |
 | Figs. S1–S5 | `fig_ieee_si.py` | as labelled |
+| Fig. S7, TMM verification | `tmm_crosscheck.py` | `results/optical/` |
+| Cs₂AgBiBr₆ correction | `stage60_cabb_au_correction.py` | `*_au80corr*` files |
 
 ---
 
