@@ -27,6 +27,12 @@
 \editstrue          % <-- set to \editsfalse to strip every editorial note
 \newcommand{\edit}[1]{\ifedits{\color{red}\textbf{[#1]}}\fi}
 
+% Author biographies: IEEE wants these with the FINAL files, after acceptance,
+% not at first submission. Leave \biosfalse for the review PDF; flip to
+% \biostrue (and add the photos) for the accepted-version package.
+\newif\ifbios
+\biosfalse
+
 % ---- convenient chemistry shorthands ------------------------------------
 \newcommand{\FASnI}{FASnI\textsubscript{3}}
 \newcommand{\CABI}{Cu\textsubscript{2}AgBiI\textsubscript{6}}
@@ -54,9 +60,12 @@ Distinct Lead-Free Absorbers}
 \author{Md.~Mohiuddin and Alamgir~Kabir%
 \thanks{The authors are with the Department of Physics, University of Dhaka,
 Dhaka 1000, Bangladesh (e-mail: alamgir.kabir@du.ac.bd).}%
-\thanks{Manuscript received \edit{DATE}; revised \edit{DATE}.}}
+\thanks{Manuscript submitted to the IEEE Journal of Photovoltaics.}}
 
-\markboth{IEEE Journal of Photovoltaics,~Vol.~XX, No.~X, Month~2026}%
+% Running heads: the journal/volume/issue banner is stamped by IEEE
+% production on acceptance -- do not guess it. A neutral head is standard for
+% the review PDF.
+\markboth{Submitted to the IEEE Journal of Photovoltaics}%
 {Mohiuddin \MakeLowercase{\textit{et al.}}: Interface Band Offsets Limit Four Lead-Free Absorbers}
 
 \maketitle
@@ -553,6 +562,7 @@ computational resources.
 
 \vfill
 
+\ifbios
 % ---- author biographies -------------------------------------------------
 % Replace the placeholder photographs with real files. IEEE specification:
 % 1 in x 1.25 in, 300 dpi minimum, TIFF or high-quality JPEG, head and
@@ -577,5 +587,7 @@ simulation, and lead-free perovskite absorbers.}
 currently \ldots{} with the Department of Physics, University of Dhaka, Dhaka,
 Bangladesh. His research interests include \ldots{}.}
 \end{IEEEbiographynophoto}
+
+\fi
 
 \end{document}
