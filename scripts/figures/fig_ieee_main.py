@@ -184,32 +184,21 @@ def fig_absorptance_budget():
 
 # ============================================================== Fig 3: G(z)
 def fig_generation():
-    fig, axs = plt.subplots(1, 2, figsize=(S.COL2, 2.5), constrained_layout=True)
-    OLDG = {'FASnI3': 'FASnI3_Gz_profile_AM15G.csv',
-            'Cu2AgBiI6': 'Cu2AgBiI6_Gz_profile_AM15G.csv',
-            'BaZrS3': 'BaZrS3_Gz_profile_AM15G.csv',
-            'Cs2AgBiBr6': 'Cs2AgBiBr6_Gz_profile_AM15G.csv'}
+    fig, ax = plt.subplots(figsize=(S.COL1, 2.5), constrained_layout=True)
+    GZ = {A: f'f3d_{A}_planar_Gz_AM15G_forTransport.csv' for A in ABS}
+    GZ['Cs2AgBiBr6'] = 'f3d_Cs2AgBiBr6_planar_Gz_AM15G_au80corr_forTransport.csv'
     for A in ABS:
         c = S.PALETTE[ASLOT[A]]; d = S.DASHES[ASLOT[A]]
         kw = dict(color=c, lw=1.1)
         if d[0] is not None:
             kw['dashes'] = list(d)
-        o = np.loadtxt(p(OLDG[A]), delimiter=',', skiprows=1)
-        axs[0].semilogy((o[:, 0] * 1e9 - 280), o[:, 1], **kw)
-        gzf = (f'f3d_{A}_planar_Gz_AM15G_forTransport.csv'
-               if A != 'Cs2AgBiBr6' else
-               'f3d_Cs2AgBiBr6_planar_Gz_AM15G_au80corr_forTransport.csv')
-        nw = np.loadtxt(p('full3d/results', gzf), delimiter=',', skiprows=1)
-        axs[1].semilogy((nw[:, 0] * 1e9 - 280), nw[:, 1], label=PRETTY[A], **kw)
-    for a, t in zip(axs, ['Previous optics', 'This work']):
-        a.set_xlabel('Depth from HTL interface (nm)')
-        a.set_xlim(0, 300); a.grid(True, color=S.GRID, lw=0.4)
-        a.set_ylim(1e25, 3e28)
-        a.text(0.03, 0.06, t, transform=a.transAxes, fontsize=7,
-               color=S.INK_2, style='italic')
-    axs[0].set_ylabel(r'$G(z)$ (m$^{-3}$ s$^{-1}$)')
-    axs[1].legend(frameon=False, fontsize=6.5, loc='upper left')
-    panel_label(axs[0], '(a)'); panel_label(axs[1], '(b)')
+        g = np.loadtxt(p('full3d/results', GZ[A]), delimiter=',', skiprows=1)
+        ax.semilogy(g[:, 0] * 1e9 - 280, g[:, 1], label=PRETTY[A], **kw)
+    ax.set_xlabel('Depth from HTL interface (nm)')
+    ax.set_ylabel(r'$G(z)$ (m$^{-3}$ s$^{-1}$)')
+    ax.set_xlim(0, 300); ax.set_ylim(1e25, 3e28)
+    ax.grid(True, color=S.GRID, lw=0.4)
+    ax.legend(frameon=False, fontsize=6.5, loc='upper left')
     S.save(fig, os.path.join(OUT, 'fig3_generation'))
     plt.close(fig)
 
@@ -219,26 +208,22 @@ def fig_jv():
     fig, axs = plt.subplots(2, 2, figsize=(S.COL2, 4.2), constrained_layout=True)
     for ax, A in zip(axs.ravel(), ABS):
         c = S.PALETTE[ASLOT[A]]
-        fo, fn = JV[A]
-        Vo, Jo = jv(fo); Vn, Jn = jv(fn)
-        ax.plot(Vo, Jo, color=S.INK_2, lw=1.0, dashes=[4, 1.5],
-                label='Previous optics')
-        ax.plot(Vn, Jn, color=c, lw=1.3, label='This work')
+        Vn, Jn = jv(JV[A][1])
+        ax.plot(Vn, Jn, color=c, lw=1.3)
         ax.axhline(0, color=S.GRID, lw=0.5)
-        jo, vo, fo_, po = DEV[A]['old']; jn, vn, fn_, pn = DEV[A]['new']
-        ax.set_xlim(0, max(Vo.max(), Vn.max()))
-        ax.set_ylim(min(-1.0, -0.05 * max(jo, jn)), 1.18 * max(jo, jn))
+        jn, vn, fn_, pn = DEV[A]['new']
+        ax.set_xlim(0, Vn.max())
+        ax.set_ylim(min(-1.0, -0.05 * jn), 1.18 * jn)
         ax.text(0.035, 0.94, PRETTY[A], transform=ax.transAxes, fontsize=8,
                 fontweight='bold', va='top')
         ax.text(0.035, 0.80,
-                f'PCE {po:.2f}% $\\rightarrow$ {pn:.2f}%',
+                f'PCE {pn:.2f}%  $V_{{oc}}$ {vn:.3f} V  FF {fn_:.3f}',
                 transform=ax.transAxes, fontsize=6.5, va='top', color=S.INK_2)
         ax.grid(True, color=S.GRID, lw=0.4)
     for ax in axs[1, :]:
         ax.set_xlabel('Voltage (V)')
     for ax in axs[:, 0]:
         ax.set_ylabel(r'Current density (mA cm$^{-2}$)')
-    axs[0, 0].legend(frameon=False, fontsize=6.5, loc='center left')
     for ax, s in zip(axs.ravel(), ['(a)', '(b)', '(c)', '(d)']):
         panel_label(ax, s)
     S.save(fig, os.path.join(OUT, 'fig4_jv'))

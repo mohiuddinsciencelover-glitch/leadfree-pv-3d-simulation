@@ -127,10 +127,10 @@ Extract metrics with:
 python3 build_scripts/jv_metrics.py results/jv_<case>.csv
 ```
 
-**Always run the control first.** Each script runs the case on the *previous*
-generation profile before the new one. The control must reproduce the published
-base case; if it does not, the model state is wrong and nothing downstream is
-interpretable. See Trap 2.
+**Always run the regression fixture first.** Each driver script solves a
+fixed-input reference case before the case under study. The fixture must
+reproduce its recorded output exactly; if it does not, the model state is
+wrong and nothing downstream is interpretable. See Trap 2.
 
 ---
 
@@ -181,8 +181,8 @@ the x and y pairs to look different because the incident wave is x-polarized.
 
 `build_scripts/build_stage15_heterojunction.py` sets the HTL acceptor doping to
 `1e19 cm^-3`. The saved model holds `1e18`. A later stage changed it and only
-the model records that. Restoring parameters from the script gives BaZrS₃
-J_sc = 12.095 / FF = 0.381 instead of the correct 11.846 / 0.340.
+the model records that. Restoring parameters from the script instead of the model shifts BaZrS₃'s
+fill factor from 0.34 to 0.38 — a silent, plausible-looking error.
 
 **Read device parameters back from the `.mph`, never from the build script.**
 Additionally, `models/BaZrS3_pilot_3d_work.mph` is left in its *CuO* HTL

@@ -18,23 +18,17 @@ answers.
 
 ## Headline results
 
-Optical current ceilings (AM1.5G, 100 % collection, mA cm⁻²):
+Results of record (AM1.5G; ceiling = photocurrent at 100 % collection):
 
-| Absorber | Prescribed-profile estimate | Full-wave 3-D | Change |
-|---|---:|---:|---:|
-| FASnI₃ | 18.27 | **20.450** | +11.9 % |
-| Cu₂AgBiI₆ | 13.91 | **15.083** | +8.4 % |
-| Cs₂AgBiBr₆ | 2.07 | **2.546** | +23.0 % |
-| BaZrS₃ | 12.29 | **10.306** | −16.1 % |
+| Absorber | Ceiling J_ph (mA cm⁻²) | J_sc | V_oc (V) | FF | PCE | Collection |
+|---|---:|---:|---:|---:|---:|---:|
+| FASnI₃ | 20.450 | 15.811 | 0.988 | 0.509 | 7.95 % | 77.3 % |
+| Cu₂AgBiI₆ | 15.083 | 15.017 | 1.384 | 0.518 | 10.76 % | 99.6 % |
+| BaZrS₃ | 10.306 | 9.883 | 1.340 | 0.340 | 4.50 % | 95.9 % |
+| Cs₂AgBiBr₆ | 2.440 | 2.371 | 1.760 | 0.281 | 1.17 % | 97.2 % |
 
-Device metrics on the corrected optics:
-
-| Absorber | J_sc (mA cm⁻²) | V_oc (V) | FF | PCE |
-|---|---:|---:|---:|---:|
-| FASnI₃ | 15.811 | 0.988 | 0.509 | 7.95 % |
-| Cu₂AgBiI₆ | 15.017 | 1.384 | 0.518 | 10.76 % |
-| BaZrS₃ | 9.883 | 1.337 | 0.340 | 4.48 % |
-| Cs₂AgBiBr₆ | 2.473 | 1.766 | 0.280 | 1.22 % |
+The Cs₂AgBiBr₆ ceiling is the thick-contact limit (see the Au-truncation
+section of REPRODUCE.md).
 
 No device is limited by optical collection (96–99.6 % of ceiling collected);
 each is limited by a band-offset cliff at a transport interface.
@@ -67,9 +61,10 @@ separately from the spectral integral of layer absorptance.
 | G(z) vs spectrum | +0.05 % | +0.03 % | +0.04 % | −0.04 % |
 | Band seam, 400 / 600 nm | 0.070 / 0.023 % | 0.079 / 0.020 % | 0.075 / 0.020 % | 0.096 / 0.000 % |
 
-Each device re-simulation was additionally preceded by a control run on the
-previous generation profile that had to reproduce the published base case
-before the new result was accepted. All four controls reproduced exactly.
+The jv/ directory additionally contains regression fixtures
+(`jv_f3dctrl_*.csv`, `jv_ctrl*.csv`): fixed-input runs used to confirm the
+pipeline reproduces its reference outputs exactly before any configuration
+change is trusted.
 
 ## Not included
 

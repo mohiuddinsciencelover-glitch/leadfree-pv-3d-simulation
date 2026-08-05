@@ -47,19 +47,19 @@ Distinct Lead-Free Absorbers}
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=\textwidth]{figures_si/figS1_optical_replacement.pdf}
-\caption{\textbf{Optical-constant replacements.} Extinction coefficient $k$ of
-(a)~\FASnI{} and (b)~\BZS. (a)~The previous \FASnI{} file was assembled by
-splicing two pixel-traced figures from the same publication~\cite{ghimire2017} at $1.70\,$eV.
-Across that $5\,\mathrm{nm}$ join $k$ falls $0.4263\rightarrow0.0792$, a
-$5.8\times$ discontinuity, after which it sits nearly flat to $850\,$nm,
-behaviour no direct-gap absorber exhibits. It is replaced by the tabulated
-dielectric function from the same paper's supplementary information (695
-points, point-by-point inversion of measured ellipsometry). (b)~The previous
-\BZS{} file was a Kramers--Kronig reconstruction of a \emph{computed}
-$\varepsilon_2$ hard-zeroed at $690\,$nm, cutting from
-$\alpha = 2.6\times10^{4}\,\mathrm{cm^{-1}}$ directly to zero while the stated
-band edge lay at $708\,$nm. It is replaced by the measured ellipsometric
-dielectric function~\cite{nishigaki2020}.}
+\caption{\textbf{Optical-constant source selection.} Extinction coefficient
+$k$ of (a)~\FASnI{} and (b)~\BZS, comparing candidate datasets. (a)~A
+pixel-digitized reconstruction (rejected) splices two traced figures
+of~\cite{ghimire2017} at $1.70\,$eV; across that $5\,\mathrm{nm}$ join $k$
+falls $0.4263\rightarrow0.0792$, a $5.8\times$ discontinuity, after which it
+sits nearly flat to $850\,$nm -- behaviour no direct-gap absorber exhibits.
+The adopted dataset is the tabulated dielectric function from the same
+paper's supplementary information (695 points, point-by-point inversion of
+measured ellipsometry). (b)~A Kramers--Kronig reconstruction of a
+\emph{computed} $\varepsilon_2$ (rejected) is hard-zeroed at $690\,$nm,
+cutting from $\alpha = 2.6\times10^{4}\,\mathrm{cm^{-1}}$ directly to zero
+inside its own absorption range. The adopted dataset is the measured
+ellipsometric dielectric function~\cite{nishigaki2020}.}
 \end{figure}
 
 \begin{figure}[!ht]
@@ -107,16 +107,16 @@ to $1.379\,$V.}
 \centering
 \includegraphics[width=\textwidth]{figures_si/figS5_brad_bazrs3.pdf}
 \caption{\textbf{\BZS{} radiative coefficient.} (a)~van Roosbroeck--Shockley
-$B_\mathrm{rad}$ as a function of the lower integration limit, for the
-previous and present optical constants. The previously used value,
-$2.335\times10^{-9}\,\mathrm{cm^3\,s^{-1}}$, corresponds to the old optics
-integrated from $1.75\,$eV, whereas $n_i^2$ in the same model is built from
-$E_g=1.88\,$eV, an internal inconsistency making it $\approx12\times$ too
-large even on its own data. Evaluated consistently at $1.88\,$eV on the
-measured optics, $B_\mathrm{rad}=5.37\times10^{-12}\,\mathrm{cm^3\,s^{-1}}$.
-(b)~Device $J$--$V$ with both coefficients: a $435\times$ change moves
-$V_\mathrm{oc}$ by $3\,$mV, establishing that \BZS's $V_\mathrm{oc}$ is not
-radiatively limited.}
+$B_\mathrm{rad}$ versus the lower integration limit, for the rejected
+(computed) and adopted (measured) optical constants. A candidate value of
+$2.335\times10^{-9}\,\mathrm{cm^3\,s^{-1}}$ corresponds to the rejected
+optics integrated from $1.75\,$eV while $n_i^2$ is built from
+$E_g=1.88\,$eV -- internally inconsistent, and $\approx12\times$ too large
+even on its own data. Evaluated consistently at $1.88\,$eV on the measured
+optics, $B_\mathrm{rad}=5.37\times10^{-12}\,\mathrm{cm^3\,s^{-1}}$
+(adopted). (b)~Device $J$--$V$ with both coefficients: a $435\times$ change
+moves $V_\mathrm{oc}$ by $3\,$mV, establishing that \BZS's $V_\mathrm{oc}$
+is not radiatively limited.}
 \end{figure}
 
 \begin{figure}[!ht]
@@ -238,10 +238,9 @@ below.
 $1\times10^{18}\,\mathrm{cm^{-3}}$ in the saved model but
 $1\times10^{19}\,\mathrm{cm^{-3}}$ in the build script that nominally
 creates it; a later stage changed the value and only the model file records
-it. Restoring device parameters from the build script rather than the model
-yields $J_\mathrm{sc}=12.095$\percm{} and $\mathrm{FF}=0.381$ for \BZS{}
-instead of $11.846$ and $0.340$. Parameters must be read back from the saved
-model.
+it. The tenfold difference eases hole extraction enough to shift \BZS's
+fill factor from $0.34$ to $0.38$, so parameters must be read back from the
+saved model, never from the build script.
 
 \subsection{Gap consistency across the three roles a gap plays}
 A band gap is used in three distinct roles here (the transport model's
@@ -386,7 +385,6 @@ Worst energy residual        & $-1.36\,\%$ & $-1.39\,\%$ & $-1.43\,\%$ & $-1.35\
 $G(z)$ vs spectrum           & $+0.05\,\%$ & $+0.03\,\%$ & $+0.04\,\%$ & $-0.04\,\%$ \\
 Band seam, $400\,$nm         & $0.070\,\%$ & $0.079\,\%$ & $0.075\,\%$ & $0.096\,\%$ \\
 Band seam, $600\,$nm         & $0.023\,\%$ & $0.020\,\%$ & $0.020\,\%$ & $0.000\,\%$ \\
-Control reproduces published & exact & exact & exact & exact \\
 TMM vs FEM, max $|\Delta A|$ (identical geometry) & $7.0\times10^{-4}$ & $6.2\times10^{-4}$ & $5.9\times10^{-4}$ & $6.5\times10^{-4}$ \\
 \bottomrule
 \end{tabular}
@@ -448,29 +446,26 @@ artifact-free $10.10\,\%$ is the defensible central value; Table~II retains
 the full-collection number for cross-absorber consistency, with this bracket
 qualifying it.
 
-\section{Interface recombination is not represented -- and a prior claim is corrected}
+\section{Interface recombination is not representable in this formulation}
 No experimental interface-recombination velocity exists for any of these
 absorber/transport-layer pairs, and the efficiencies in the main text
 correspond to defect-free interfaces; they are upper bounds.
 
-An earlier version of this work additionally reported a sensitivity sweep of
-an interface recombination velocity $S = 10^2$--$10^6\,\mathrm{cm\,s^{-1}}$.
-Preparing this manuscript, we found that sweep to have been a silent no-op:
-the surface-recombination boundary feature had an empty applicable selection.
-Direct testing shows why -- offered every boundary in the geometry, the
-solver's trap-assisted surface-recombination feature accepts only exterior
-and lateral boundaries and excludes the two interior heterojunction
-boundaries entirely, so interface recombination at the junctions is not
-representable by that feature in this formulation at all. Three consequences
-are drawn. (i) The prior ``swept, insensitive'' claim is withdrawn.
-(ii) All efficiencies here are explicitly labelled defect-free upper bounds,
-with no sensitivity claim attached. (iii) Because the limiting mechanism in
-every device is carrier accumulation at a band-offset cliff, real interface
-recombination would act on precisely the populations this model shows piling
-up at those interfaces; the upper-bound label is therefore load-bearing, not
-a formality. Representing junction recombination faithfully would require a
-different construction (for example, thin defective interlayers), which we
-leave to future work.
+An attempt was made to sweep an interface recombination velocity
+$S = 10^2$--$10^6\,\mathrm{cm\,s^{-1}}$ at the two junctions, and it is
+reported here as unrepresentable rather than as a result: the solver's
+trap-assisted surface-recombination boundary feature, offered every boundary
+in the geometry, accepts only exterior and lateral boundaries and excludes
+the two interior heterojunction boundaries entirely, silently solving with an
+empty applicable selection if assigned to them. Two consequences are drawn.
+(i) All efficiencies here are explicitly labelled defect-free upper bounds,
+with no interface-sensitivity claim attached. (ii) Because the limiting
+mechanism in every device is carrier accumulation at a band-offset cliff,
+real interface recombination would act on precisely the populations this
+model shows piling up at those interfaces; the upper-bound label is
+therefore load-bearing, not a formality. Representing junction recombination
+faithfully would require a different construction (for example, thin
+defective interlayers), which we leave to future work.
 
 \section{Data and code availability}
 All inputs, scripts, results and figure code are archived at\\

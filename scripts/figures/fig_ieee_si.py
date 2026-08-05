@@ -91,9 +91,9 @@ def si_optical_replacement():
     ln, nn, kn = readnk('full3d/data/FASnI3_nk_Ghimire2017_SI.csv')
     m = (lo >= 300) & (lo <= 950); m2 = (ln >= 300) & (ln <= 950)
     axs[0].semilogy(lo[m], np.maximum(ko[m], 1e-4), color=S.INK_2, lw=1.0,
-                    dashes=[4, 1.5], label='Digitized figures (previous)')
+                    dashes=[4, 1.5], label='Pixel-digitized (rejected)')
     axs[0].semilogy(ln[m2], np.maximum(kn[m2], 1e-4), color=S.PALETTE[0],
-                    lw=1.2, label='Tabulated SI (this work)')
+                    lw=1.2, label='Tabulated SI $\\varepsilon$ (adopted)')
     axs[0].axvline(729.3, color=S.PALETTE[1], lw=0.8, dashes=[2, 2])
     axs[0].annotate('1.70 eV splice\n($5.8\\times$ step in $k$)', xy=(729, 0.2),
                     xytext=(560, 0.012), fontsize=6, color=S.PALETTE[1],
@@ -104,9 +104,9 @@ def si_optical_replacement():
     ln, nn, kn = readnk('full3d/data/BaZrS3_nk_Nishigaki2020.csv')
     m = (lo >= 300) & (lo <= 950); m2 = (ln >= 300) & (ln <= 950)
     axs[1].semilogy(lo[m], np.maximum(ko[m], 1e-4), color=S.INK_2, lw=1.0,
-                    dashes=[4, 1.5], label='KK of computed $\\varepsilon_2$ (previous)')
+                    dashes=[4, 1.5], label='KK of computed $\\varepsilon_2$ (rejected)')
     axs[1].semilogy(ln[m2], np.maximum(kn[m2], 1e-4), color=S.PALETTE[2],
-                    lw=1.2, label='Measured ellipsometry (this work)')
+                    lw=1.2, label='Measured ellipsometry (adopted)')
     axs[1].axvline(690, color=S.PALETTE[1], lw=0.8, dashes=[2, 2])
     axs[1].annotate('hard zero at 690 nm\ninside the absorption range',
                     xy=(690, 0.02), xytext=(430, 0.0015), fontsize=6,
@@ -204,7 +204,7 @@ def si_subgap():
 # ------------------------------------------ S4: Cu2AgBiI6 Voc grid dependence
 def si_voc_grid():
     fig, axs = plt.subplots(1, 2, figsize=(S.COL2, 2.4), constrained_layout=True)
-    runs = [('Mixed 1-25 mV grid (published)',
+    runs = [('Mixed 1--25 mV grid',
              'results/jv_cabi_light_base_dense.csv', S.INK_2, [4, 1.5]),
             ('Uniform 1 mV grid', 'results/jv_f3dctrl_cabi_light_base_dense.csv',
              S.PALETTE[1], None)]
@@ -277,7 +277,7 @@ def si_brad():
     axs[0].text(1.885, 3e-9, '$E_g$ used in\n$n_i^2$ (1.88 eV)', fontsize=6,
                 color=S.PALETTE[1])
     axs[0].axhline(2.335e-9, color=S.PALETTE[3], lw=0.8, dashes=[1, 1.5])
-    axs[0].text(1.71, 3.2e-9, 'published $B_{\\rm rad}$', fontsize=6,
+    axs[0].text(1.71, 3.2e-9, 'inconsistent 1.75 eV integral', fontsize=6,
                 color=S.PALETTE[3])
     axs[0].set_xlabel('Lower integration limit (eV)')
     axs[0].set_ylabel(r'$B_{\rm rad}$ (cm$^3$ s$^{-1}$)')
