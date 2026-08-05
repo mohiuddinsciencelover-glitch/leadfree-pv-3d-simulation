@@ -162,10 +162,13 @@ lateral faces.
 
 \textbf{Sources.} Absorber optics: \FASnI~\cite{ghimire2017},
 \CABI~\cite{kamppinen2026,sansom2021}, \BZS~\cite{nishigaki2020},
-\CABB~\cite{eddekkar2024}. Gaps and masses: \BZS~\cite{kumar2021},
-\CABB~\cite{eddekkar2024,filip2016}. Lifetimes: \BZS~\cite{yuan2024}.
-\FASnI{} electron affinity: experimental UPS~\cite{wu2022chi}, with the
-$4.0$\,eV sweep endpoint from~\cite{scaps_fasni3}. Transport layers:
+\CABB~\cite{eddekkar2024}. Gaps and masses: \BZS~\cite{kumar2021}, band
+alignment~\cite{eya_dzade}; \CABB~\cite{eddekkar2024,filip2016}. Lifetimes:
+\BZS{} $1$\,ns from single-crystal transient photoluminescence
+\cite{nielsen2025} and $33$\,ns computed from the sulfur-interstitial
+capture coefficients of~\cite{yuan2024}. \FASnI{} electron affinity:
+experimental photoelectron spectroscopy in air (PESA)~\cite{wu2022chi}, with
+the $4.0$\,eV sweep endpoint from~\cite{scaps_fasni3}. Transport layers:
 \cite{rahman2023,usman2024}. Contact optics: FTO~\cite{vonrottkay1996},
 \TiOx~\cite{devore1951}, Au~\cite{mcpeak2015}.
 
@@ -197,6 +200,48 @@ $B_\mathrm{rad}$ (cm$^3$s$^{-1}$) & $\mathbf{5.37{\times}10^{-12}}$ & $7.99{\tim
 the 2.06\,eV Tauc gap of~\cite{sansom2021} is used for the sub-gap
 decomposition of Fig.~S3.}
 \end{table}
+
+\begin{table}[!ht]
+\caption{Transport-layer and contact parameters}
+\centering\small
+\begin{tabular}{lllc}
+\toprule
+Quantity & \TiOx{} (ETL) & Spiro-OMeTAD (HTL) & Source \\
+\midrule
+$E_g$ (eV)                        & 3.2  & 2.9  & \cite{usman2024,rahman2023} \\
+$\chi$ (eV)                      & 4.15 & 2.15 & \cite{usman2024,rahman2023} \\
+$\varepsilon_r$                  & --   & 3    & \cite{rahman2023} \\
+$\mu_n$, $\mu_p$ (cm$^2$V$^{-1}$s$^{-1}$) & -- & $1\times10^{-4}$ & \cite{rahman2023} \\
+$N_c$, $N_v$ (cm$^{-3}$)          & $2.2\times10^{18}$, $1\times10^{19}$ & $2.2\times10^{18}$, $2.2\times10^{18}$ & \cite{rahman2023,usman2024} \\
+Doping (cm$^{-3}$)                & $N_d$ $5\times10^{17}$ & $N_a$ $1\times10^{18}$ & \cite{rahman2023} \\
+Optical                           & Sellmeier, $k=0$~\cite{devore1951} & $n=1.75$, $k=0$ & Sec.~S6 \\
+FTO work function (eV)            & \multicolumn{2}{l}{4.6} & \cite{rahman2023} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Disclosed disagreements.} Two literature conflicts are carried openly
+rather than silently resolved. Spiro-OMeTAD band gap: $2.9$\,eV
+\cite{rahman2023} versus $3.2$\,eV \cite{tiwari2022}; Spiro $N_v$:
+$2.2\times10^{18}$ \cite{rahman2023} versus $1.8\times10^{19}$
+\cite{tiwari2022}. We use \cite{rahman2023} throughout. A third reported
+value, a Spiro hole mobility of $2\times10^{4}\,\mathrm{cm^2V^{-1}s^{-1}}$
+\cite{tiwari2022}, is rejected as a transcription error: it is roughly ten
+orders of magnitude above the well-established
+${\sim}10^{-4}\,\mathrm{cm^2V^{-1}s^{-1}}$ for this material. Both
+disagreements and the rejection were confirmed against each paper's own
+tables during the citation audit. The HTL acceptor doping is the saved-model
+value ($1\times10^{18}\,\mathrm{cm^{-3}}$); see the reproducibility caution
+below.
+
+\textbf{A reproducibility caution.} The HTL acceptor doping is
+$1\times10^{18}\,\mathrm{cm^{-3}}$ in the saved model but
+$1\times10^{19}\,\mathrm{cm^{-3}}$ in the build script that nominally
+creates it; a later stage changed the value and only the model file records
+it. Restoring device parameters from the build script rather than the model
+yields $J_\mathrm{sc}=12.095$\percm{} and $\mathrm{FF}=0.381$ for \BZS{}
+instead of $11.846$ and $0.340$. Parameters must be read back from the saved
+model.
 
 \subsection{Gap consistency across the three roles a gap plays}
 A band gap is used in three distinct roles here (the transport model's
@@ -236,13 +281,7 @@ only $V_\mathrm{oc}$ carries it, by a predictable ${\approx}\Delta E_g$. \textbf
 optical file carries a deliberate sub-gap tail to $1.40\,$eV; the consequence
 there is material and is discussed in the main text.
 
-\textbf{A reproducibility caution.} The HTL acceptor doping is
-$1\times10^{18}\,\mathrm{cm^{-3}}$ in the saved model but
-$1\times10^{19}\,\mathrm{cm^{-3}}$ in the build script that nominally creates
-it; a later stage changed the value and only the model file records it.
-Restoring device parameters from the build script rather than the model yields
-$J_\mathrm{sc}=12.095$\percm{} and $\mathrm{FF}=0.381$ for \BZS{} instead of
-$11.846$ and $0.340$. Parameters must be read back from the saved model.
+
 
 \section{The back-contact truncation artifact in \CABB}
 The optical model truncates the Au contact at $45\,$nm backed by a perfect
@@ -292,7 +331,7 @@ Elements & $A_\mathrm{absorber}$ \\
 \end{tabular}
 \end{table}
 
-A $36\,\%$ swing for a $2.5\,\%$ change in element count. The remedy is to
+A $36\,\%$ swing for a $2.4\,\%$ change in element count. The remedy is to
 mesh $x=0$ with a free-triangular operation, copy that mesh onto $x=L$, repeat
 for $y$, and only then fill with tetrahedra; feature order matters because the
 $x$ and $y$ faces share the cell's vertical edges. After the fix the same
@@ -321,7 +360,7 @@ applied only to air and the perfectly matched layer, never to the absorber.
 \textbf{Two independent photocurrent routes.} The depth integral of $G(z)$ and
 the spectral integral of layer absorptance are computed separately and
 compared every run. They share the solve but nothing else. Agreement across
-the four absorbers is $+0.05$, $+0.03$, $-0.04$, $+0.04\,\%$.
+the four absorbers is $+0.05$, $+0.03$, $+0.04$, $-0.04\,\%$.
 
 \textbf{AM1.5G quadrature.} Irradiance is integrated over each wavelength bin
 rather than sampled at bin centres, and the outer bin edges are clamped to the
@@ -355,7 +394,8 @@ TMM vs FEM, max $|\Delta A|$ (identical geometry) & $7.0\times10^{-4}$ & $6.2\ti
 
 \section{Optical model limitations}
 \textbf{Lossless transport layers.} \TiOx{} is modeled with a Sellmeier real
-index clamped below $400\,$nm (its $283\,$nm pole otherwise returns $n=5.58$
+index (measured on rutile; ETL films are typically anatase, a further
+approximation of this treatment) clamped below $400\,$nm (its $283\,$nm pole otherwise returns $n=5.58$
 at the blue end of the grid), and Spiro-OMeTAD with a constant $n=1.75$; both
 carry $k=0$. Their budget entries are therefore exactly zero and all front
 parasitic absorption is attributed to the FTO. \TiOx{} genuinely absorbs below
@@ -381,7 +421,11 @@ full reconstruction reproduces the production profile exactly before any
 restriction is applied): one with only above-gap bins
 ($\lambda \leq 600\,$nm), and one with all bins except the $750$--$880\,$nm
 segment where the absorption coefficient sits at an unphysical flat floor --
-a construction artifact of the optical file rather than a real Urbach tail.
+a construction artifact of the optical file rather than a real Urbach tail
+(these are the $10\,$nm solve bins covering the flat segment, whose true edge
+in the optical file lies at ${\approx}885\,$nm; the removed bins carry
+$0.99$\percm{} versus the $0.91$\percm{} continuum integral of Fig.~S3, the
+difference being bin quantization).
 
 \begin{table}[!ht]
 \caption{\CABI{} sub-gap collection bracket (uniform 1\,mV grid)}

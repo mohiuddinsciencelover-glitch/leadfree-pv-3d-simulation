@@ -43,13 +43,13 @@ NK = {'FASnI3': 'full3d/data/FASnI3_nk_Ghimire2017_SI.csv',
 DEV = {
     'FASnI3':     dict(old=(14.740, 0.987, 0.5173, 7.521), new=(15.811, 0.988, 0.5090, 7.948)),
     'Cu2AgBiI6':  dict(old=(13.856, 1.379, 0.5190, 9.909), new=(15.017, 1.384, 0.5176, 10.757)),
-    'BaZrS3':     dict(old=(11.846, 1.341, 0.3398, 5.395), new=(9.883, 1.337, 0.3395, 4.484)),
+    'BaZrS3':     dict(old=(11.846, 1.341, 0.3398, 5.395), new=(9.883, 1.340, 0.3400, 4.499)),
     'Cs2AgBiBr6': dict(old=(2.010, 1.710, 0.2865, 0.984), new=(2.371, 1.760, 0.2807, 1.170)),
 }
 JV = {  # control (old G(z)) and treatment (new G(z)) curve files
     'FASnI3':     ('results/jv_f3dctrl_fasni3_light_base.csv', 'results/jv_f3d_fasni3_light_base.csv'),
     'Cu2AgBiI6':  ('results/jv_f3dctrl_cabi_light_base_dense.csv', 'results/jv_f3d_cabi_light_base_dense.csv'),
-    'BaZrS3':     ('results/jv_ctrl2_spiroTE_light_chi4p1_tau1ns.csv', 'results/jv_f3d_spiroTE_light_chi4p1_tau1ns.csv'),
+    'BaZrS3':     ('results/jv_ctrl2_spiroTE_light_chi4p1_tau1ns.csv', 'results/jv_f3d_spiroTE_light_chi4p1_tau1ns_Brad.csv'),
     'Cs2AgBiBr6': ('results/jv_f3dctrl_cs_light_base.csv', 'results/jv_f3d_cs_light_base_au80corr.csv'),
 }
 AREA = (350e-9) ** 2

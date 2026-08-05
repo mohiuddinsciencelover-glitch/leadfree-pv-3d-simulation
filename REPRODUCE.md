@@ -159,7 +159,7 @@ Each of these produces output that looks correct.
 A free-tetrahedral mesh does not give the two faces of a periodic pair the same
 surface mesh. COMSOL does not error; it interpolates, and the answer moves with
 every remesh. Measured here at 700 nm: absorber absorptance 0.719 / 0.663 /
-0.463 across meshes differing by 2.5 % in element count — a 36 % swing.
+0.463 across meshes differing by 2.4 % in element count — a 36 % swing.
 
 Fix: free-triangular mesh on x = 0 → copy face onto x = L → free-triangular on
 y = 0 → copy onto y = L → tetrahedral fill. Order matters (the x and y faces

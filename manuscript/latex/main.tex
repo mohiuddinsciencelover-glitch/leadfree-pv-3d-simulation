@@ -119,8 +119,9 @@ $14.51\,\%$ certified on $1\,\mathrm{cm}^2$ fullerene-free
 architectures~\cite{li2026} and $16.65\,\%$ through 2D/3D heterostructure
 engineering~\cite{he2025}, though Sn$^{2+}\!\rightarrow$Sn$^{4+}$ oxidation
 remains their governing stability problem~\cite{yang2017}.
-\emph{Chalcogenide perovskites} such as \BZS{} replace halide with sulfide,
-offering exceptional thermal and moisture stability~\cite{kumar2021}; their
+\emph{Chalcogenide perovskites} such as \BZS{} replace halide with sulfide, a
+chemistry pursued for its thermal and moisture robustness, and their electronic
+structure is now characterized at the many-body level~\cite{kumar2021}; their
 photovoltaic literature, however, remains overwhelmingly computational, with
 SCAPS-1D optimizations projecting $22$--$34\,\%$
 efficiencies~\cite{sowayan2025,guo2025} that far outrun nascent experimental
@@ -128,8 +129,8 @@ demonstrations. \emph{Halide double perovskites} such as \CABB{} restore full
 inorganic stability, but wide indirect gaps and sluggish transport cap
 experimental single-junction PCE near
 $6\,\%$~\cite{zhang2022,li2021review,moed2026} (a record that itself required
-gap-narrowing hydrogenation; unmodified devices sit nearer $3$--$4\,\%$
-\cite{zhang2022}). \emph{Quaternary
+gap-narrowing hydrogenation; the same work's untreated control reached
+$0.55\,\%$~\cite{zhang2022}). \emph{Quaternary
 bismuth/silver iodides} such as \CABI{} are strongly absorbing, air-stable,
 wide-gap semiconductors attractive for tandem top cells and indoor
 harvesting~\cite{sansom2021,moon2025}, yet their experimental efficiencies
@@ -207,7 +208,7 @@ carry identical surface meshes.} A free-tetrahedral mesher does not produce
 this, and the solver then interpolates across the mismatch without raising an
 error; the computed absorptance wanders with every remesh. On this stack,
 absorber absorptance at $700\,\mathrm{nm}$ took values $0.719$, $0.663$ and
-$0.463$ on meshes differing by $2.5\,\%$ in element count, a $36\,\%$ swing.
+$0.463$ on meshes differing by $2.4\,\%$ in element count, a $36\,\%$ swing.
 The fix is to mesh one face of each pair with a free-triangular operation and
 copy it onto the opposite face before the tetrahedral fill; the same
 comparison then gives $0.783103$ versus $0.782888$ ($0.03\,\%$). Critically,
@@ -248,8 +249,11 @@ problem is coupled to the optical and electrical stages, following coupled
 opto-electro-thermal treatments of lead-based
 devices~\cite{saxena2019,bahrami2024,suldozi2026} and motivated by the
 reported sensitivity of self-heating to active-material
-properties~\cite{kamppinen2024}, with per-layer thermal conductivities all
-literature-cited~\cite{mun2007,oka2014,ho1972,wang2015,zheng2024}. The
+properties~\cite{kamppinen2024}, with per-layer thermal conductivities
+literature-cited~\cite{mun2007,oka2014,ho1972,zheng2024,li_cs2agbibr6_kappa};
+no direct Spiro-OMeTAD measurement exists, so its value is a disclosed proxy
+from a structurally similar small-molecule organic
+semiconductor~\cite{wang2015}. The
 thermal stage was closed on the optical inputs of the parent study; the
 quoted temperature coefficient is a relative quantity and is robust to the
 subsequent rescaling of the generation profile, and absolute operating
@@ -387,8 +391,8 @@ Absorber & $J_\mathrm{sc}$ (mA\,cm$^{-2}$) & $V_\mathrm{oc}$ (V) & FF & PCE (\%)
 \midrule
 \FASnI & $14.740\rightarrow\mathbf{15.811}$ & $0.987\rightarrow0.988$ & $0.517\rightarrow0.509$ & $7.52\rightarrow\mathbf{7.95}$  & $80.7\rightarrow77.3\,\%$ \\
 \CABI  & $13.856\rightarrow\mathbf{15.017}$ & $1.379\rightarrow1.384$ & $0.519\rightarrow0.518$ & $9.91\rightarrow\mathbf{10.76}$ & $99.6\rightarrow99.6\,\%$ \\
-\BZS   & $11.846\rightarrow\mathbf{9.883}$  & $1.341\rightarrow1.337$ & $0.340\rightarrow0.340$ & $5.40\rightarrow\mathbf{4.48}$  & $96.4\rightarrow95.9\,\%$ \\
-\CABB  & $2.010\rightarrow\mathbf{2.371}$   & $1.710\rightarrow1.760$ & $0.287\rightarrow0.281$ & $0.98\rightarrow\mathbf{1.17}$  & $97.3\rightarrow97.2\,\%$ \\
+\BZS   & $11.846\rightarrow\mathbf{9.883}$  & $1.341\rightarrow1.340$ & $0.340\rightarrow0.340$ & $5.40\rightarrow\mathbf{4.50}$  & $96.4\rightarrow95.9\,\%$ \\
+\CABB  & $2.010\rightarrow\mathbf{2.371}$   & $1.710\rightarrow1.760$ & $0.287\rightarrow0.281$ & $0.98\rightarrow\mathbf{1.17}$  & $97.1\rightarrow97.2\,\%$ \\
 \bottomrule
 \end{tabular}
 
@@ -422,9 +426,11 @@ interface, and the four materials partition into two classes
 \emph{conduction-band cliff at the \TiOx{} electron contact}, $0.65\,$eV and
 $0.93\,$eV respectively, which permits interfacial recombination and caps fill
 factor. \BZS{} and \CABB{} are limited by a \emph{valence-band cliff at the
-Spiro-OMeTAD hole contact}, $0.93\,$eV and $1.27\,$eV, which blocks forward
+Spiro-OMeTAD hole contact}~\cite{eya_dzade}, $0.93\,$eV and $1.27\,$eV, which blocks forward
 hole injection, produces an S-shaped $J$--$V$ characteristic and collapses
-fill factor to $0.28$--$0.34$~\cite{minemoto2001}.
+fill factor to $0.28$--$0.34$ -- the hole-side analogue of the band-offset
+barrier mechanism established for conduction-band spikes at CIS window
+layers~\cite{minemoto2001}.
 
 \begin{figure*}[!t]
 \centering
@@ -462,8 +468,10 @@ radiative bound, as previously stated; it is set by dark current through the
 Spiro injection barrier. The previously used coefficient was also internally
 inconsistent, the van Roosbroeck--Shockley integral having been taken from
 $1.75\,$eV while $n_i^2$ was constructed from a $1.88\,$eV gap, making it
-$\approx12\times$ too large even on its own optical data. Because the device
-is insensitive to it, this does not affect any reported performance number.
+$\approx12\times$ too large even on its own optical data. The corrected
+coefficient is used for the \BZS{} device of record in Table~II; the entire
+effect of the $435\times$ change is $3\,$mV of $V_\mathrm{oc}$ and $0.02$
+PCE points.
 
 \subsection{Numerical fidelity and disclosures}
 Three caveats must be stated explicitly.
@@ -514,12 +522,13 @@ four devices, so comparisons are unaffected.
 Three design consequences follow.
 
 \emph{Transport-layer band engineering is the operative problem.} With
-defect-free interfaces every device already collects $96$--$99.6\,\%$ of its
-available photocurrent; further absorber optimization cannot address what
-limits them. The cliff taxonomy identifies which contact to change for which
+defect-free interfaces three of the four devices already collect
+$96$--$99.6\,\%$ of their available photocurrent, and the fourth (\FASnI,
+at $77\,\%$) loses the remainder to bulk recombination rather than optics;
+further absorber optimization cannot address what limits any of them. The cliff taxonomy identifies which contact to change for which
 material: \FASnI{} and \CABI{} need a shallower-affinity electron contact,
 \BZS{} and \CABB{} a deeper-HOMO hole contact. For \BZS{} neither
-Spiro-OMeTAD~\cite{rahman2023} nor CuO~\cite{elnaggar2024,ungeheuer2024}
+Spiro-OMeTAD~\cite{rahman2023} nor CuO~\cite{elnaggar2024}
 provides both a deep HOMO ($\approx5.9\,$eV) and a high conduction-band
 minimum, which is why that material's HTL selection remains unresolved.
 
