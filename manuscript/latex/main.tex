@@ -211,7 +211,13 @@ ellipsometric $\varepsilon$ for \FASnI~\cite{ghimire2017}, tabulated
 ellipsometry with a photothermal-deflection sub-gap tail for
 \CABI~\cite{kamppinen2026,sansom2021}, the measured ellipsometric dielectric
 function for \BZS~\cite{nishigaki2020}, and the conductivity-route extinction
-derived from~\cite{eddekkar2024} for \CABB. The contacts use measured
+derived from~\cite{eddekkar2024} for \CABB{} -- that source's
+absorption-coefficient panel is internally inconsistent with its own
+conductivity and dielectric panels by a factor of $2\pi$, which we confirmed
+by an independent re-digitization (the conductivity route gives
+$\alpha_\mathrm{true}/\alpha_\mathrm{panel} = 5.98$--$6.21$ over
+$3.8$--$4.4\,$eV, consistent with $2\pi = 6.28$), so the mutually consistent
+conductivity/dielectric panels are used and the $\alpha$ panel is not. The contacts use measured
 SnO$_2$:F dispersion~\cite{vonrottkay1996} and Au~\cite{mcpeak2015}; \TiOx{}
 uses a Sellmeier index~\cite{devore1951}.
 
@@ -557,7 +563,7 @@ computational resources.
 
 % IEEEtran.bst gives correct IEEE reference formatting and ships with
 % texlive-publishers. ieeetr.bst is a close fallback so this always builds.
-\IfFileExists{IEEEtran.bst}{\bibliographystyle{IEEEtran}}{\bibliographystyle{ieeetr}}
+\bibliographystyle{IEEEtran}
 \bibliography{references}
 
 \vfill
