@@ -275,7 +275,7 @@ damping dips in its $450$--$570\,\mathrm{nm}$ interband window, and \CABB{}
 is the one absorber transparent exactly there. The truncation inflated its
 ceiling by $4.3\,\%$; all \CABB{} results below use the corrected
 thick-contact limit, computed with the validated transfer-matrix method and
-re-solved through transport (Supplementary Section~S4).
+re-solved through transport (Supplementary Section~S3).
 
 Device $J$--$V$ curves use continuation in applied bias. For \CABI{} a
 $25\,\mathrm{mV}$ grid lands on spurious negative-differential-resistance
@@ -481,7 +481,12 @@ segment where the absorption coefficient stops decaying and sits flat at
 $\approx2.7\times10^{3}\,\mathrm{cm^{-1}}$ for $130\,\mathrm{nm}$ before
 stepping to zero, a construction artifact rather than a physical Urbach tail.
 An optical ceiling credits all of these carriers at $100\,\%$ collection,
-which is optimistic for tail states.
+which is optimistic for tail states. Re-solving the device on restricted
+generation profiles bounds the assumption (Supplementary Section~S7): with
+the artifact removed but the measured tail kept, PCE is $10.10\,\%$; with no
+sub-gap collection at all, $6.98\,\%$. The full-collection $10.76\,\%$ of
+Table~II is therefore the optimistic end of a $[6.98, 10.76]\,\%$ bracket
+whose defensible central value is $10.10\,\%$.
 
 \emph{\CABI{} open-circuit voltage is not grid-converged.} The same model on a
 mixed $1$--$25\,\mathrm{mV}$ continuation grid gives $V_\mathrm{oc} =
@@ -492,6 +497,11 @@ $12.612$\percm), so PCE is unaffected. The cause is physical: the ETL cliff
 makes the pre-$V_\mathrm{oc}$ tail nearly flat, so a $0.08$\percm{} numerical
 difference moves the zero crossing enormously. $V_\mathrm{oc}$ is poorly
 conditioned for this absorber; $P_\mathrm{max}$-derived metrics are robust.
+A related gap-choice test (Supplementary Section~S2) re-solved \CABB{} at its
+$2.21\,$eV optical onset and \BZS{} at its $1.94\,$eV measured onset: PCE is
+invariant to four decimals in both, with the shift appearing entirely in
+$V_\mathrm{oc}$ (${\approx}\Delta E_g$) and compensated by the fill factor --
+the disclosed gap inconsistencies do not affect any efficiency conclusion.
 
 \emph{Lossless transport layers.} \TiOx{}~\cite{devore1951} and Spiro-OMeTAD
 are modeled with real-only refractive indices ($k=0$), so their budget entries
@@ -527,8 +537,12 @@ channel, not against reflection alone.
 
 \emph{Limitations.} Interfaces are defect-free, so reported efficiencies are
 upper bounds; no literature interface-recombination data exists for these
-material pairs, and an interface recombination velocity sweep is provided
-instead. Transport layers are optically lossless. The thermal loop is closed
+material pairs, and junction recombination is not representable by the
+solver's surface-recombination feature in this formulation (an earlier
+sensitivity claim to the contrary is withdrawn and corrected in Supplementary
+Section~S8). Because the limiting mechanism is carrier accumulation at a
+band-offset cliff, the upper-bound label is load-bearing. Transport layers
+are optically lossless. The thermal loop is closed
 only for \CABB. \CABI's $V_\mathrm{oc}$ carries the convergence caveat above,
 and its optical constants include a sub-gap tail whose device consequences we
 do not model as distinct from band-edge carriers.

@@ -71,7 +71,7 @@ four absorbers against the $\pm2\,\%$ acceptance band; the worst value across
 (b)~Band-seam agreement: wavelengths at the $400$ and $600\,$nm band
 boundaries solved on both neighbouring meshes, which are generated
 independently. Agreement is $0.020$--$0.096\,\%$. This is the check that
-detects the Floquet periodic-mesh defect of Section~S3; the energy residual
+detects the Floquet periodic-mesh defect of Section~S4; the energy residual
 does not.}
 \end{figure}
 
@@ -148,7 +148,7 @@ disagreement across all $4\times61$ solves is $7\times10^{-4}$ in
 absorptance and $0.02\,\%$ in AM1.5G photocurrent. For \CABB{} the dashed
 curve shows the thick-contact (semi-infinite Au) limit: the visible departure
 in the $430$--$570\,$nm window is the back-contact truncation artifact of
-Section~S4, which the identical-geometry agreement isolates as geometric
+Section~S3, which the identical-geometry agreement isolates as geometric
 rather than numerical.}
 \end{figure}
 
@@ -181,7 +181,7 @@ parameter-free relation; \textbf{[SWEPT]} treated as a sensitivity axis.
 \toprule
 Quantity & \BZS & \FASnI & \CABB & \CABI & Status \\
 \midrule
-$E_g$ (eV)        & 1.88 & 1.41 & 2.32 & 2.06 & [THEO]/[EXP] \\
+$E_g$ (eV)        & 1.88 & 1.41 & 2.32 & 2.03$^{a}$ & [THEO]/[EXP] \\
 $\chi$ (eV)       & 4.1  & 3.50 & 4.0  & 3.22 & \textbf{[SWEPT]} \\
 $m_e^*/m_0$       & 0.3  & --   & 0.33 & --   & [THEO] \\
 $m_h^*/m_0$       & 0.9  & --   & 0.84 & --   & [THEO] \\
@@ -191,6 +191,11 @@ $\mu$ (cm$^2$V$^{-1}$s$^{-1}$) & -- & 67/22 & 0.57/6 & 1.7/5.1 & \textbf{[SWEPT]
 $B_\mathrm{rad}$ (cm$^3$s$^{-1}$) & $\mathbf{5.37{\times}10^{-12}}$ & $7.99{\times}10^{-8}$ & $3.19{\times}10^{-12}$ & -- & \textbf{[DERIVED]} \\
 \bottomrule
 \end{tabular}
+
+\vspace{2pt}
+{\footnotesize $^{a}$Transport-model value, read back from the saved model;
+the 2.06\,eV Tauc gap of~\cite{sansom2021} is used for the sub-gap
+decomposition of Fig.~S3.}
 \end{table}
 
 \subsection{Gap consistency across the three roles a gap plays}
@@ -209,7 +214,7 @@ Absorber & transport $n_i^2$ & DB ceiling & optical onset & spread \\
 \FASnI & 1.41 & 1.41 & 1.39 & 0.02\,eV \\
 \BZS   & 1.88 & 1.94 & 1.88 & 0.06\,eV \\
 \CABB  & 2.32 & 2.10 & 2.21 & \textbf{0.22\,eV} \\
-\CABI  & 2.06 & 2.06 & 1.41 & \textbf{0.65\,eV} \\
+\CABI  & 2.03 & 2.06 & 1.41 & \textbf{0.65\,eV} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -217,10 +222,17 @@ Absorber & transport $n_i^2$ & DB ceiling & optical onset & spread \\
 \FASnI{} and \BZS{} are consistent. \textbf{\CABB{} is not}: its HSE06
 transport gap ($2.32\,$eV), the $2.10\,$eV used for its detailed-balance
 ceiling, and the $2.21\,$eV onset of its own optical constants disagree by up
-to $0.22\,$eV. The device consequence is small, only ${\approx}3\,\%$ of its
-photocurrent coming from photons below the $2.32\,$eV transport gap, but the
-three values should be reconciled or the choice for each role stated
-explicitly. \textbf{\CABI's $0.65\,$eV spread is by construction}, since its
+to $0.22\,$eV. The device consequence was tested directly by re-solving the device with
+$E_g = 2.21\,$eV (its own optical onset): $J_\mathrm{sc}$, $P_\mathrm{max}$
+and PCE are unchanged to four decimal places ($1.170\,\%$), while the gap
+shift appears entirely in $V_\mathrm{oc}$ ($-111\,$mV $\approx \Delta E_g$,
+as $n_i^2$ dictates) with the fill factor compensating exactly
+($0.281\rightarrow0.300$) because the maximum power point sits on the
+barrier-limited plateau at $0.60\,$V. The same test on \BZS{}
+($1.88\rightarrow1.94\,$eV) gives the same structure: PCE unchanged at
+$4.499\,\%$, $V_\mathrm{oc}$ $+62\,$mV, FF $0.340\rightarrow0.325$.
+Efficiency-level conclusions are therefore invariant to the gap choice;
+only $V_\mathrm{oc}$ carries it, by a predictable ${\approx}\Delta E_g$. \textbf{\CABI's $0.65\,$eV spread is by construction}, since its
 optical file carries a deliberate sub-gap tail to $1.40\,$eV; the consequence
 there is material and is discussed in the main text.
 
@@ -360,12 +372,61 @@ electric conductor, while the transport model retains the full $80\,$nm. The
 generation profile is therefore shifted by $35\,$nm when handed to the
 transport stage, and both frames are provided in the archive.
 
-\section{Interface recombination}
+\section{The Cu$_2$AgBiI$_6$ sub-gap collection bracket}
+$38.2\,\%$ of \CABI's photocurrent originates below its Tauc gap (Fig.~S3),
+and the transport model collects it like band-to-band generation. To bound
+what that assumption is worth, the device was re-solved on two restricted
+generation profiles built from the per-wavelength absorbed-power data (the
+full reconstruction reproduces the production profile exactly before any
+restriction is applied): one with only above-gap bins
+($\lambda \leq 600\,$nm), and one with all bins except the $750$--$880\,$nm
+segment where the absorption coefficient sits at an unphysical flat floor --
+a construction artifact of the optical file rather than a real Urbach tail.
+
+\begin{table}[!ht]
+\caption{\CABI{} sub-gap collection bracket (uniform 1\,mV grid)}
+\centering\small
+\begin{tabular}{lrrrr}
+\toprule
+Generation & $J_\mathrm{sc}$ & $V_\mathrm{oc}$ (V) & FF & PCE \\
+\midrule
+above-gap only (floor)        &  9.442 & 1.367 & 0.541 & $6.98\,\%$ \\
+artifact-free (defensible)    & 14.032 & 1.382 & 0.521 & $10.10\,\%$ \\
+full collection (as Table~II) & 15.017 & 1.384 & 0.518 & $10.76\,\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The decomposition separates two very different quantities: the construction
+artifact alone is worth $0.66$ absolute PCE points, and the assumption that
+genuine tail states collect like band carriers a further $3.12$ points. The
+artifact-free $10.10\,\%$ is the defensible central value; Table~II retains
+the full-collection number for cross-absorber consistency, with this bracket
+qualifying it.
+
+\section{Interface recombination is not represented -- and a prior claim is corrected}
 No experimental interface-recombination velocity exists for any of these
-absorber/transport-layer pairs. Rather than assign one, $S$ is swept over
-$10^2$, $10^4$ and $10^6\,\mathrm{cm\,s^{-1}}$ with all other parameters at
-their base values. The efficiencies in the main text correspond to
-defect-free interfaces ($S=0$) and are therefore upper bounds.
+absorber/transport-layer pairs, and the efficiencies in the main text
+correspond to defect-free interfaces; they are upper bounds.
+
+An earlier version of this work additionally reported a sensitivity sweep of
+an interface recombination velocity $S = 10^2$--$10^6\,\mathrm{cm\,s^{-1}}$.
+Preparing this manuscript, we found that sweep to have been a silent no-op:
+the surface-recombination boundary feature had an empty applicable selection.
+Direct testing shows why -- offered every boundary in the geometry, the
+solver's trap-assisted surface-recombination feature accepts only exterior
+and lateral boundaries and excludes the two interior heterojunction
+boundaries entirely, so interface recombination at the junctions is not
+representable by that feature in this formulation at all. Three consequences
+are drawn. (i) The prior ``swept, insensitive'' claim is withdrawn.
+(ii) All efficiencies here are explicitly labelled defect-free upper bounds,
+with no sensitivity claim attached. (iii) Because the limiting mechanism in
+every device is carrier accumulation at a band-offset cliff, real interface
+recombination would act on precisely the populations this model shows piling
+up at those interfaces; the upper-bound label is therefore load-bearing, not
+a formality. Representing junction recombination faithfully would require a
+different construction (for example, thin defective interlayers), which we
+leave to future work.
 
 \section{Data and code availability}
 All inputs, scripts, results and figure code are archived at\\
@@ -374,7 +435,7 @@ All inputs, scripts, results and figure code are archived at\\
 traps that cost significant time during development: the periodic-mesh defect,
 the build-script/model parameter divergence, the \CABI{} continuation-grid
 artifact, the two AM1.5G quadrature errors, and the Au-truncation artifact of
-Section~S4.
+Section~S3.
 
 \IfFileExists{IEEEtran.bst}{\bibliographystyle{IEEEtran}}{\bibliographystyle{ieeetr}}
 \bibliography{references}

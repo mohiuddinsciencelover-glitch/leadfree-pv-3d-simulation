@@ -22,8 +22,8 @@ p = m.param()
 semi = m.component('comp1').physics('semi')
 semi.feature('tsrh1').active(True)
 semi.feature('udr_rad').active(True)
-semi.feature('surf_htl').active(False)
-semi.feature('surf_etl').active(False)
+surf_S = None
+
 semi.feature('hetero1').set('HeteroModelSelection', hmode)
 semi.feature('hetero2').set('HeteroModelSelection', hmode)
 p.set('ramp', '1e-8')
@@ -42,8 +42,33 @@ for k, v in overrides:
         m.func('Gz_fn').set('filename', v)
         print(f'Gz_fn -> {v}', flush=True)
         continue
+    if k == 'S':                    # optional: interface recombination velocity
+        surf_S = v
+        continue
     p.set(k, v)
     print(f'param {k} = {v}', flush=True)
+if surf_S is None:
+    semi.feature('surf_htl').active(False)
+    semi.feature('surf_etl').active(False)
+else:
+    p.set('S_int', surf_S)
+    # The features were created against named selections that never resolved
+    # (empty since the ORIGINAL study -- the published S-sweep was a silent
+    # no-op). Bind them to the heterojunction boundaries directly, and refuse
+    # to run if that still yields nothing.
+    for surf, het in (('surf_htl', 'hetero1'), ('surf_etl', 'hetero2')):
+        ents = m.component('comp1').physics('semi').feature(het)                 .selection().entities(2)
+        sf = semi.feature(surf)
+        sf.selection().set(ents)
+        sf.set('vsn', 'S_int')
+        sf.set('vsp', 'S_int')
+        sf.active(True)
+        got = list(sf.selection().entities(2))
+        print(f'{surf} <- {het} boundaries {list(ents)} -> now {got}', flush=True)
+        if not got:
+            raise SystemExit(f'{surf}: selection still empty; refusing to '
+                             f'run a no-op S sweep')
+    print(f'interface recombination ACTIVE, S_int = {surf_S}', flush=True)
 m.study('std5').feature('stat5').setIndex(
     'plistarr', vlist if vlist else f'range(0,-0.025,{vend})', 1)
 for prop, val in [('solnum', 'last'), ('notsolnum', 'last')]:
