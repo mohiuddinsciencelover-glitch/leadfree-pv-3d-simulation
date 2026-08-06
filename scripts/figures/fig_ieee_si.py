@@ -57,12 +57,18 @@ def am15g():
 
 
 def jflux(lam, A, lo=0.0, hi=1e9):
+    """Endpoint-interpolated piecewise integral, so adjacent segments
+    PARTITION the full-range integral exactly. A mask-only trapezoid drops the
+    dense-grid sliver straddling each boundary (~0.05 mA/cm2 at the Tauc gap),
+    which made the Fig. S3 bars disagree with the caption and the total.
+    """
     ld, irr = am15g()
     phi = irr * (ld * 1e-9) / (H * C0)
-    m = (ld >= max(lo, lam.min())) & (ld <= min(hi, lam.max()))
-    if not m.any():
-        return 0.0
-    return Q * np.trapz(np.interp(ld[m], lam, A) * phi[m], ld[m]) / 10.0
+    lo, hi = max(lo, lam.min()), min(hi, lam.max())
+    m = (ld > lo) & (ld < hi)
+    xs = np.concatenate(([lo], ld[m], [hi]))
+    return Q * np.trapz(np.interp(xs, lam, A) * np.interp(xs, ld, phi),
+                        xs) / 10.0
 
 
 def readnk(path):
@@ -204,9 +210,9 @@ def si_subgap():
 # ------------------------------------------ S4: Cu2AgBiI6 Voc grid dependence
 def si_voc_grid():
     fig, axs = plt.subplots(1, 2, figsize=(S.COL2, 2.4), constrained_layout=True)
-    runs = [('Mixed 1--25 mV grid',
-             'results/jv_cabi_light_base_dense.csv', S.INK_2, [4, 1.5]),
-            ('Uniform 1 mV grid', 'results/jv_f3dctrl_cabi_light_base_dense.csv',
+    runs = [('Mixed 1--25 mV grid', 'results/jv_s62_cabi_mixedgrid.csv',
+             S.INK_2, [4, 1.5]),
+            ('Uniform 1 mV grid', 'results/jv_f3d_cabi_light_base_dense.csv',
              S.PALETTE[1], None)]
     for lbl_, f, c, dsh in runs:
         V, J = jv(f)
@@ -218,10 +224,10 @@ def si_voc_grid():
         a.axhline(0, color=S.GRID, lw=0.5); a.grid(True, color=S.GRID, lw=0.4)
         a.set_xlabel('Voltage (V)')
     axs[0].set_ylabel(r'Current density (mA cm$^{-2}$)')
-    axs[0].set_xlim(0, 1.6); axs[0].set_ylim(-1, 16)
+    axs[0].set_xlim(0, 1.6); axs[0].set_ylim(-1, 17)
     axs[0].legend(frameon=False, fontsize=6, loc='lower left')
-    axs[0].annotate('identical through MPP\n($P_{\\max}$ 9.9126, $V_{\\rm mpp}$ 0.786)',
-                    xy=(0.786, 12.6), xytext=(0.15, 5.0), fontsize=6,
+    axs[0].annotate('identical through MPP\n($P_{\\max}$ 10.761, $V_{\\rm mpp}$ 0.786)',
+                    xy=(0.786, 13.7), xytext=(0.15, 5.0), fontsize=6,
                     color=S.INK_2,
                     arrowprops=dict(arrowstyle='->', color=S.INK_2, lw=0.6))
     axs[1].set_xlim(1.25, 1.58); axs[1].set_ylim(-0.12, 0.32)
@@ -229,7 +235,7 @@ def si_voc_grid():
     axs[1].text(0.5, 0.92, 'pre-$V_{oc}$ tail (magnified)',
                 transform=axs[1].transAxes, ha='center', fontsize=6.5,
                 color=S.INK_2, style='italic')
-    for vv, cc in [(1.512, S.INK_2), (1.379, S.PALETTE[1])]:
+    for vv, cc in [(1.515, S.INK_2), (1.384, S.PALETTE[1])]:
         axs[1].axvline(vv, color=cc, lw=0.7, dashes=[2, 2])
         axs[1].text(vv, 0.26, f'{vv:.3f} V', rotation=90, fontsize=5.8,
                     color=cc, ha='right', va='top')

@@ -83,7 +83,8 @@ parameter literature-sourced and provenance-graded and every uncertain
 parameter swept. Maxwell's equations are solved coherently on the real
 multilayer stack rather than a Beer--Lambert generation profile being
 prescribed, as is standard in this literature; every result closes its
-optical energy budget to $\pm0.00\,\%$ and reproduces its photocurrent
+AM1.5G-weighted optical energy budget to $\pm0.00\,\%$ (worst per-wavelength
+residual $1.4\,\%$) and reproduces its photocurrent
 through two independent integration routes to within $0.05\,\%$, and the
 electromagnetic solver is verified against an independent
 transfer-matrix calculation to better than $0.1\,\%$ absorptance at every
@@ -93,9 +94,7 @@ collection: the best collects $99.6\,\%$ of its optical ceiling. Each is
 instead limited in voltage and fill factor by a band-offset cliff at a
 transport interface. The four materials partition into two mechanistic
 classes, electron-transport-layer conduction-band cliffs (\FASnI, \CABI) and
-hole-transport-layer valence-band cliffs (\BZS, \CABB). Closing the thermal
-loop for \CABB{} gives a benign relative temperature coefficient of
-$\approx -0.12\,\%\,\mathrm{K}^{-1}$. Parasitic absorption in the transparent
+hole-transport-layer valence-band cliffs (\BZS, \CABB). Parasitic absorption in the transparent
 conductor is a first-order loss throughout, exceeding the absorber's own
 photocurrent in the most weakly absorbing case. Transport-layer band
 engineering, not further absorber optimization, is the operative design
@@ -206,12 +205,14 @@ formulation, for 61 wavelengths spanning $300$--$900\,\mathrm{nm}$ at
 $10\,\mathrm{nm}$ resolution under AM1.5G illumination~\cite{astm_g173}.
 Absorbed power density is integrated per layer, giving a closed optical
 budget: absorber plus each parasitic layer plus reflectance equals incident.
-Absorber optical constants are measured data throughout: tabulated
-ellipsometric $\varepsilon$ for \FASnI~\cite{ghimire2017}, tabulated
-ellipsometry with a photothermal-deflection sub-gap tail for
-\CABI~\cite{kamppinen2026,sansom2021}, the measured ellipsometric dielectric
-function for \BZS~\cite{nishigaki2020}, and the conductivity-route extinction
-derived from~\cite{eddekkar2024} for \CABB{} -- that source's
+Absorber optical constants are measured data for three of the four:
+tabulated ellipsometric $\varepsilon$ for \FASnI~\cite{ghimire2017},
+tabulated ellipsometry with a photothermal-deflection sub-gap tail for
+\CABI~\cite{kamppinen2026,sansom2021}, and the measured ellipsometric
+dielectric function for \BZS~\cite{nishigaki2020}. For \CABB{} no measured
+dielectric function of comparable spectral completeness has been published,
+and the HSE06-computed response of~\cite{eddekkar2024} is used instead, via
+its conductivity panel -- that source's
 absorption-coefficient panel is internally inconsistent with its own
 conductivity and dielectric panels by a factor of $2\pi$, which we confirmed
 by an independent re-digitization (the conductivity route gives
@@ -327,8 +328,11 @@ coefficient $k$ (logarithmic).}
 \BZS's comparatively low ceiling follows from a deliberate data choice: the
 measured ellipsometric dielectric function~\cite{nishigaki2020} is adopted
 over Kramers--Kronig reconstructions of computed spectra, which zero-pad
-inside the material's own absorption range (Fig.~S1); the measured data has
-weak near-edge absorption and an onset at $639\,\mathrm{nm}$. The \CABB{}
+inside the material's own absorption range (Fig.~S1). The measured data has
+weak near-edge absorption: the source states $E_g = 1.94$\,eV, and the
+parameterized spectrum's absorptance falls below the $1\,\%$ level beyond
+${\approx}660\,\mathrm{nm}$ ($1.88$\,eV), the onset visible in Fig.~S6. The
+\CABB{}
 ceiling is quoted in the thick-contact limit, correcting the Au-truncation
 artifact exposed by the transfer-matrix check of Sec.~II-E.
 
@@ -455,7 +459,7 @@ limited; it is set by dark current through the Spiro injection barrier.
 \subsection{Numerical fidelity and disclosures}
 Three caveats must be stated explicitly.
 
-\emph{\CABI{} sub-gap absorption.} $38.2\,\%$ of this absorber's photocurrent
+\emph{\CABI{} sub-gap absorption.} $38.3\,\%$ of this absorber's photocurrent
 ($5.77$\percm) originates below its $2.06\,$eV Tauc gap. This is not an
 artifact of the electromagnetic solve: the optical file is constructed from
 tabulated ellipsometry above $2.0\,$eV~\cite{kamppinen2026} and a
@@ -477,15 +481,16 @@ whose defensible central value is $10.10\,\%$.
 
 \emph{\CABI{} open-circuit voltage is not grid-converged.} The same model on a
 mixed $1$--$25\,\mathrm{mV}$ continuation grid gives $V_\mathrm{oc} =
-1.512\,$V and on a uniform $1\,\mathrm{mV}$ grid $1.379\,$V, a $133\,$mV
+1.515\,$V and on a uniform $1\,\mathrm{mV}$ grid $1.384\,$V, a $131\,$mV
 spread. Maximum power, $V_\mathrm{mpp}$ and $J_\mathrm{mpp}$ are identical to
-five significant figures ($9.9126\,\mathrm{mW\,cm^{-2}}$, $0.786\,$V,
-$12.612$\percm), so PCE is unaffected. The cause is physical: the ETL cliff
+five significant figures ($10.761\,\mathrm{mW\,cm^{-2}}$, $0.786\,$V,
+$13.691$\percm), so PCE is unaffected (Fig.~S4). The cause is physical: the ETL cliff
 makes the pre-$V_\mathrm{oc}$ tail nearly flat, so a $0.08$\percm{} numerical
 difference moves the zero crossing enormously. $V_\mathrm{oc}$ is poorly
 conditioned for this absorber; $P_\mathrm{max}$-derived metrics are robust.
 A related gap-choice test (Supplementary Section~S2) re-solved \CABB{} at its
-$2.21\,$eV optical onset and \BZS{} at its $1.94\,$eV measured onset: PCE is
+$2.21\,$eV optical onset and \BZS{} at the $1.94\,$eV gap stated by its
+optical source: PCE is
 invariant to four decimals in both, with the shift appearing entirely in
 $V_\mathrm{oc}$ (${\approx}\Delta E_g$) and compensated by the fill factor --
 the disclosed gap inconsistencies do not affect any efficiency conclusion.
@@ -522,6 +527,12 @@ costs $7.2$--$9.8$\percm{} across the four devices, and for \CABB{} the
 contact absorbs four times more photocurrent than the absorber does. Any
 optical improvement to these stacks must be assessed against this loss
 channel, not against reflection alone.
+
+For \CABB{} the closed thermal loop indicates a benign relative temperature
+coefficient of $\approx-0.12\,\%\,\mathrm{K}^{-1}$; this figure was
+obtained with the pre-refinement optical inputs (Sec.~II) and is quoted here,
+rather than among the results, as a relative quantity robust to the
+generation rescale.
 
 \emph{Limitations.} Interfaces are defect-free, so reported efficiencies are
 upper bounds; no literature interface-recombination data exists for these

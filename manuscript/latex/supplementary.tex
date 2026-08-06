@@ -80,9 +80,10 @@ does not.}
 \includegraphics[width=\textwidth]{figures_si/figS3_subgap_cu2agbii6.pdf}
 \caption{\textbf{\CABI{} sub-gap absorption.} (a)~Absorber absorptance with the
 $2.06\,$eV Tauc gap marked; the shaded region is sub-gap. (b)~Decomposition of
-the $15.083$\percm{} optical ceiling by spectral region. $61.8\,\%$ lies above
-the Tauc gap; $28.9\,\%$ is an Urbach-like tail with characteristic energy
-$\approx88\,$meV; $3.3\,\%$ a weak tail; and $6.0\,\%$ ($0.908$\percm) arises
+the $15.083$\percm{} optical ceiling by spectral region; the segments
+partition the total exactly. $61.7\,\%$ lies above the Tauc gap; $29.0\,\%$
+is an Urbach-like tail with characteristic energy $\approx88\,$meV;
+$3.3\,\%$ a weak tail; and $6.0\,\%$ ($0.908$\percm) arises
 where $\alpha$ stops decaying and sits flat at
 $\approx2.7\times10^{3}\,\mathrm{cm^{-1}}$ for $130\,$nm before stepping to
 zero at $886\,$nm, a construction artifact of the optical file rather than a
@@ -95,12 +96,12 @@ physical tail.}
 \caption{\textbf{\CABI{} open-circuit voltage is not grid-converged.} (a)~$J$--$V$
 on a mixed $1$--$25\,\mathrm{mV}$ continuation grid versus a uniform
 $1\,\mathrm{mV}$ grid. The curves are identical through the maximum power
-point ($P_\mathrm{max}=9.9126\,\mathrm{mW\,cm^{-2}}$,
-$V_\mathrm{mpp}=0.786\,$V, $J_\mathrm{mpp}=12.612$\percm, to five significant
+point ($P_\mathrm{max}=10.761\,\mathrm{mW\,cm^{-2}}$,
+$V_\mathrm{mpp}=0.786\,$V, $J_\mathrm{mpp}=13.691$\percm, to five significant
 figures). (b)~Magnified pre-$V_\mathrm{oc}$ tail: the curves diverge only
 beyond $\approx1.3\,$V where $J<0.2$\percm{} and the characteristic is nearly
-flat, so a $0.08$\percm{} difference moves the zero crossing from $1.512\,$V
-to $1.379\,$V.}
+flat, so a small numerical difference moves the zero crossing from $1.515\,$V
+to $1.384\,$V.}
 \end{figure}
 
 \begin{figure}[!ht]
@@ -186,14 +187,19 @@ Quantity & \BZS & \FASnI & \CABB & \CABI & Status \\
 \midrule
 $E_g$ (eV)        & 1.88 & 1.41 & 2.32 & 2.03$^{a}$ & [THEO]/[EXP] \\
 $\chi$ (eV)       & 4.1  & 3.50 & 4.0  & 3.22 & \textbf{[SWEPT]} \\
-$m_e^*/m_0$       & 0.3  & --   & 0.33 & --   & [THEO] \\
-$m_h^*/m_0$       & 0.9  & --   & 0.84 & --   & [THEO] \\
+$m_e^*/m_0$       & 0.3  & 0.3  & 0.33 & 0.6  & [THEO] \\
+$m_h^*/m_0$       & 0.9  & 0.9  & 0.84 & 1.0  & [THEO] \\
 $\tau_\mathrm{SRH}$ & 1/33\,ns & 43/123\,ns & 13.7\,ns/1\,$\mu$s & 33/3.3\,ns & \textbf{[SWEPT]} \\
-$\varepsilon_r$   & --   & 8.2/6/10 & 5.8/3.54 & 6.3/12 & \textbf{[SWEPT]} \\
-$\mu$ (cm$^2$V$^{-1}$s$^{-1}$) & -- & 67/22 & 0.57/6 & 1.7/5.1 & \textbf{[SWEPT]} \\
-$B_\mathrm{rad}$ (cm$^3$s$^{-1}$) & $\mathbf{5.37{\times}10^{-12}}$ & $7.99{\times}10^{-8}$ & $3.19{\times}10^{-12}$ & -- & \textbf{[DERIVED]} \\
+$\varepsilon_r$   & 79.4 & 8.2 (6, 10) & 5.8 (3.54) & 6.3 (12) & \textbf{[SWEPT]}$^{b}$ \\
+$\mu_n$, $\mu_p$ (cm$^2$V$^{-1}$s$^{-1}$) & 37, 11 & 67 (22) & 0.57 (6) & 1.7 (5.1) & \textbf{[SWEPT]}$^{b}$ \\
+Doping (cm$^{-3}$) & $N_d$ $4.4{\times}10^{10}$ & $N_a$ $1.5{\times}10^{17}$ & $N_a$ $1.42{\times}10^{12}$ & $N_a$ $1{\times}10^{12}$ & [SIM-LIT] \\
+$B_\mathrm{rad}$ (cm$^3$s$^{-1}$) & $\mathbf{5.37{\times}10^{-12}}$ & $7.99{\times}10^{-8}$ & $3.19{\times}10^{-12}$ & $1.51{\times}10^{-10}$ & \textbf{[DERIVED]} \\
 \bottomrule
 \end{tabular}
+
+\vspace{2pt}
+{\footnotesize All values read back from the saved models. $^{b}$Format:
+base value (alternates swept).}
 
 \vspace{2pt}
 {\footnotesize $^{a}$Transport-model value, read back from the saved model;
@@ -298,8 +304,9 @@ thick-contact limit to $\leq0.35\,\%$ in photocurrent.
 The correction uses the transfer-matrix method of Fig.~S7, which is exact for
 this planar stack and validated against the finite-element solver to
 $7\times10^{-4}$ on identical geometry. Three gates were passed in order:
-(i) the PEC-geometry TMM reproduces the FEM absorptance spectrum to
-$9\times10^{-4}$; (ii) the same pipeline reproduces the FEM generation
+(i) the PEC-geometry TMM reproduces the FEM spectrum to $9\times10^{-4}$
+across absorptance and reflectance jointly ($6.5\times10^{-4}$ on absorber
+absorptance alone -- the metric of Table~S5 and Fig.~S7); (ii) the same pipeline reproduces the FEM generation
 profile $G(z)$, including the AM1.5G bin weighting, to $0.10\,\%$ with
 identical photocurrent; (iii) only then was the thick-contact spectrum and
 $G(z)$ emitted and the \CABB{} transport re-solved on it. Corrected numbers:
@@ -423,7 +430,12 @@ a construction artifact of the optical file rather than a real Urbach tail
 (these are the $10\,$nm solve bins covering the flat segment, whose true edge
 in the optical file lies at ${\approx}885\,$nm; the removed bins carry
 $0.99$\percm{} versus the $0.91$\percm{} continuum integral of Fig.~S3, the
-difference being bin quantization).
+difference being bin quantization). The same quantization applies to the
+above-gap member: its binned profile ($\lambda \leq 600$\,nm bins)
+integrates to $9.484$\percm{} versus the $9.31$\percm{} continuum integral
+of Fig.~S3, and the device's $9.442$\percm{} is $99.6\,\%$ of its own
+binned profile, not of the continuum figure -- no entry exceeds its
+ceiling.
 
 \begin{table}[!ht]
 \caption{\CABI{} sub-gap collection bracket (uniform 1\,mV grid)}
