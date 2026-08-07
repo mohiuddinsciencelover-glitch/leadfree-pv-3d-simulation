@@ -1,8 +1,7 @@
 # Reproducing this study
 
-This document reproduces every number in *"Coupled Opto-Electrical Simulation Identifies
-Interface Band Offsets as the Common Limit Across Four Lead-Free Perovskite
-Solar-Cell Absorbers"* from the
+This document reproduces every number in *"Interface Band Offsets as the Common Limit Across Four Lead-Free
+Perovskite Solar-Cell Absorbers: A Coupled Opto-Electrical COMSOL Study"* from the
 archived inputs. It is written to be followed by someone who has COMSOL and has
 never seen this project.
 
