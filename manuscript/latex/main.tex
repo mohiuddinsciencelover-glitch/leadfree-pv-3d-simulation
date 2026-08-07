@@ -28,10 +28,10 @@
 \newcommand{\edit}[1]{\ifedits{\color{red}\textbf{[#1]}}\fi}
 
 % Author biographies: IEEE wants these with the FINAL files, after acceptance,
-% not at first submission. Leave \biosfalse for the review PDF; flip to
-% \biostrue (and add the photos) for the accepted-version package.
+% Author bios with photos included at the author's request (2026-08-08).
+% Flip to \biosfalse to produce a bio-free review PDF if ever needed.
 \newif\ifbios
-\biosfalse
+\biostrue
 
 % ---- convenient chemistry shorthands ------------------------------------
 \newcommand{\FASnI}{FASnI\textsubscript{3}}
@@ -584,41 +584,54 @@ together with \texttt{REPRODUCE.md}, which documents the full pipeline end to
 end.
 
 \section*{Acknowledgment}
-The authors thank the Department of Physics, University of Dhaka, for
-computational resources.
+The authors acknowledge the University of Dhaka for facilitating the research
+environment in the Department of Physics and the Bangladesh Research and
+Education Network (BdREN, \url{bdren.net.bd}) for the computational lab
+facilities. Text drafting and language polishing were assisted by a large
+language model. The tool was used only for prose drafting and editing. It did
+not generate or analyze data and it did not influence methodological or
+interpretive decisions. All authors verified the text and are responsible for
+all claims and conclusions.
 
 % IEEEtran.bst gives correct IEEE reference formatting and ships with
 % texlive-publishers. ieeetr.bst is a close fallback so this always builds.
 \bibliographystyle{IEEEtran}
 \bibliography{references}
 
-\vfill
-
 \ifbios
 % ---- author biographies -------------------------------------------------
-% Replace the placeholder photographs with real files. IEEE specification:
-% 1 in x 1.25 in, 300 dpi minimum, TIFF or high-quality JPEG, head and
-% shoulders. Put them beside this .tex as mohiuddin.jpg / kabir.jpg and
-% switch the \begin{IEEEbiographynophoto} lines below to \begin{IEEEbiography}
-% with the \includegraphics argument shown in the comment.
+% Photos: figures/bio_mohiuddin.jpg (600x750 px) and figures/bio_kabir.jpg
+% (138x166 px source; below the 300 dpi IEEE spec, replace at acceptance).
 
-% \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mohiuddin}}]{Md. Mohiuddin}
-\begin{IEEEbiographynophoto}{Md. Mohiuddin}
-\edit{PHOTO REQUIRED: mohiuddin.jpg, 1$\times$1.25 in, 300 dpi}
-\edit{received the B.Sc. and M.Sc. degrees in physics from the University of
-Dhaka, Dhaka, Bangladesh, in YYYY and YYYY, respectively. He is currently
-\ldots{} with the Department of Physics, University of Dhaka. His research
-interests include computational photovoltaics, finite-element device
-simulation, and lead-free perovskite absorbers.}
-\end{IEEEbiographynophoto}
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{figures/bio_mohiuddin.jpg}}]{Md. Mohiuddin}
+received the B.Sc. degree in Physics from the University of Dhaka, Dhaka,
+Bangladesh, in 2025. He is currently with the Computational Materials Science
+Laboratory, University of Dhaka, where his work focuses on first-principles
+DFT/HSE06 and phonon calculations of halide and double perovskites, combined
+with COMSOL-based multiphysics device simulations linking material properties
+to optoelectronic transport. In Fall 2026, he will join Bilkent University,
+Ankara, T\"urkiye, as a graduate student pursuing the M.S. degree in Materials
+Science and Nanotechnology. His research interests include computational
+materials modeling, perovskite optoelectronics, and multiphysics device
+simulation.
+\end{IEEEbiography}
 
-% \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{kabir}}]{Alamgir Kabir}
-\begin{IEEEbiographynophoto}{Alamgir Kabir}
-\edit{PHOTO REQUIRED: kabir.jpg, 1$\times$1.25 in, 300 dpi}
-\edit{received the Ph.D. degree in physics from \ldots{}, in YYYY. He is
-currently \ldots{} with the Department of Physics, University of Dhaka, Dhaka,
-Bangladesh. His research interests include \ldots{}.}
-\end{IEEEbiographynophoto}
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{figures/bio_kabir.jpg}}]{Alamgir Kabir}
+is a Professor in the Department of Physics at the University of Dhaka,
+Bangladesh. He received his B.Sc.\ (Hons.)\ and M.S. degrees in Physics from
+the University of Dhaka, graduating with First Class and securing Second
+Position in both examinations. He subsequently earned an M.S. and a Ph.D. in
+Physics from the University of Central Florida, USA.
+
+His research focuses on computational materials science, with particular
+emphasis on density functional theory (DFT) and molecular dynamics (MD)
+simulations. His work explores the electronic, magnetic, optical, mechanical,
+and thermoelectric properties of advanced materials, including nanoparticles,
+low-dimensional systems, and functional materials for applications in
+spintronics, renewable energy, catalysis, and optoelectronics. He has
+published extensively in international peer-reviewed journals and actively
+collaborates with researchers worldwide.
+\end{IEEEbiography}
 
 \fi
 
