@@ -195,7 +195,21 @@ ETL ($50\,\mathrm{nm}$) / absorber ($300\,\mathrm{nm}$) / Spiro-OMeTAD HTL
 devices, so all comparisons are on identical optical, electrical and numerical
 footing. The optical unit cell is $350\times350\,\mathrm{nm}^2$ with Floquet
 periodic boundaries on all four lateral faces, a perfectly matched layer
-above, and a scattering boundary condition at the illuminated plane.
+above, and a scattering boundary condition at the illuminated plane. Fig.~\ref{fig:bands}
+shows the four absorbers' band edges against these fixed contacts, with the
+offset that limits each device highlighted.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig1_band_alignment.pdf}
+\caption{Band alignment of the four devices against the vacuum level, with
+the conduction- and valence-band offsets at the two transport interfaces. The
+offset that limits each device is drawn as a literal cliff, with the carrier
+that falls over it and the fill factor it costs. The four partition into two
+classes: electron-contact cliffs (a,~b) and hole-contact cliffs (c,~d).}
+\label{fig:bands}
+\end{figure*}
+
 
 \subsection{Optical model}
 The electromagnetic problem is solved in the frequency domain, total-field
@@ -218,7 +232,20 @@ $\alpha_\mathrm{true}/\alpha_\mathrm{panel} = 5.98$ to $6.21$ over
 $3.8$ to $4.4\,$eV, consistent with $2\pi = 6.28$), so the mutually consistent
 conductivity/dielectric panels are used and the $\alpha$ panel is not. The contacts use measured
 SnO$_2$:F dispersion~\cite{vonrottkay1996} and Au~\cite{mcpeak2015}. \TiOx{}
-uses a Sellmeier index~\cite{devore1951}.
+uses a Sellmeier index~\cite{devore1951}. The four
+absorbers' optical constants are collected in Fig.~\ref{fig:optics}.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig2_optical_inputs.pdf}
+\caption{Optical constants of the four absorbers over $300$ to
+$900\,\mathrm{nm}$: (a)~refractive index $n$ and (b)~extinction coefficient
+$k$ (logarithmic). The top strip shows the normalized AM1.5G photon flux on
+the shared wavelength axis, and the triangles in (b) mark each absorber's gap
+wavelength, where its collection window closes.}
+\label{fig:optics}
+\end{figure}
+
 
 Two aspects require care. Mishandling either silently corrupts the per-layer
 absorption partition. First, \emph{Floquet periodic boundaries require the paired faces to
@@ -316,12 +343,17 @@ collection, is $20.450$, $15.083$, $10.306$ and $2.440$\percm{} for
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=\columnwidth]{figures/fig1_optical_inputs.pdf}
-\caption{Optical constants of the four absorbers over
-$300$ to $900\,\mathrm{nm}$: (a)~refractive index $n$ and (b)~extinction
-coefficient $k$ (logarithmic).}
-\label{fig:optics}
+\includegraphics[width=\columnwidth]{figures/fig3_absorptance_budget.pdf}
+\caption{Full-wave optical response. (a)~Absorber absorptance and (b)~stack
+reflectance versus wavelength. (c)~Where the incident $33.74$\percm{} goes.
+For each absorber the optics bar partitions the incident current into
+absorbed, FTO, Au and reflected channels (closing to $\pm0.00\,\%$ in every
+case), and the adjacent device bar carries the absorbed ceiling to the
+terminals as collected $J_\mathrm{sc}$ plus collection loss, with the
+resulting PCE beneath.}
+\label{fig:budget}
 \end{figure}
+
 
 \BZS's comparatively low ceiling follows from a deliberate data choice: the
 measured ellipsometric dielectric function~\cite{nishigaki2020} is adopted
@@ -334,15 +366,6 @@ ${\approx}660\,\mathrm{nm}$ ($1.88$\,eV), the onset visible in Fig.~S6. The
 ceiling is quoted in the thick-contact limit, correcting the Au-truncation
 artifact exposed by the transfer-matrix check of Sec.~II-E.
 
-\begin{figure}[!t]
-\centering
-\includegraphics[width=\columnwidth]{figures/fig2_absorptance_budget.pdf}
-\caption{Full-wave optical response. (a)~Absorber absorptance and
-(b)~stack reflectance versus wavelength. (c)~AM1.5G-weighted optical loss
-budget. The budget closes to $\pm0.00\,\%$ of the incident
-$33.74$\percm{} in every case.}
-\label{fig:budget}
-\end{figure}
 
 The loss budget (Fig.~\ref{fig:budget}c) shows the parasitic cost of the
 transparent conductor is first-order for every absorber, ranging from
@@ -357,7 +380,18 @@ ceiling and the resulting collection efficiency.
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=\columnwidth]{figures/fig3_generation.pdf}
+\includegraphics[width=\columnwidth]{figures/fig4_jv.pdf}
+\caption{Device $J$-$V$ characteristics of the four absorbers on their
+full-wave generation profiles, with the extracted $V_\mathrm{oc}$, FF and
+PCE annotated per panel. The dashed guide in each panel is that absorber's
+optical ceiling with the collected fraction, making the central claim
+directly visible: no device is limited by optical collection.}
+\label{fig:jv}
+\end{figure}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig5_generation.pdf}
 \caption{Broadband AM1.5G generation profiles $G(z)$ through the
 $300\,\mathrm{nm}$ absorber, plotted from the hole-transport interface.
 The strong absorbers front-load generation toward the illuminated (electron-
@@ -365,14 +399,6 @@ contact) face. \CABB{} generates almost uniformly.}
 \label{fig:gen}
 \end{figure}
 
-\begin{figure}[!t]
-\centering
-\includegraphics[width=\columnwidth]{figures/fig4_jv.pdf}
-\caption{Device $J$-$V$ characteristics of the four absorbers on their
-full-wave generation profiles, with the extracted $V_\mathrm{oc}$, FF and
-PCE annotated per panel.}
-\label{fig:jv}
-\end{figure}
 
 \begin{table*}[!t]
 \caption{Optical Ceilings and Device Metrics of the Four Absorbers}
@@ -421,15 +447,6 @@ fill factor to $0.28$ to $0.34$, the hole-side analogue of the band-offset
 barrier mechanism established for conduction-band spikes at CIS window
 layers~\cite{minemoto2001}.
 
-\begin{figure*}[!t]
-\centering
-\includegraphics[width=\textwidth]{figures/fig5_band_alignment.pdf}
-\caption{Band alignment of the four devices against the vacuum level, with the
-conduction- and valence-band offsets at the two transport interfaces. The
-offset that limits each device is highlighted. The four partition into two
-classes: electron-contact cliffs (a,~b) and hole-contact cliffs (c,~d).}
-\label{fig:bands}
-\end{figure*}
 
 The partition is sharp. In each material the limiting offset exceeds the
 opposing one by at least a factor of three, and in \BZS{} and \CABB{} by more

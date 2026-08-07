@@ -31,7 +31,31 @@ ABS = ['FASnI3', 'Cu2AgBiI6', 'BaZrS3', 'Cs2AgBiBr6']
 PRETTY = {'FASnI3': r'FASnI$_3$', 'Cu2AgBiI6': r'Cu$_2$AgBiI$_6$',
           'BaZrS3': r'BaZrS$_3$', 'Cs2AgBiBr6': r'Cs$_2$AgBiBr$_6$'}
 # Fixed colour slot per absorber, held across every figure in the paper.
-ASLOT = {'FASnI3': 0, 'Cu2AgBiI6': 1, 'BaZrS3': 2, 'Cs2AgBiBr6': 3}
+ASLOT = {'FASnI3': 0, 'Cu2AgBiI6': 4, 'BaZrS3': 2, 'Cs2AgBiBr6': 3}
+ORANGE = '#eb6834'          # reserved: the limiting mechanism, nothing else
+CEIL = {'FASnI3': 20.450, 'Cu2AgBiI6': 15.083, 'BaZrS3': 10.306,
+        'Cs2AgBiBr6': 2.440}
+COLLECT = {'FASnI3': 77.3, 'Cu2AgBiI6': 99.6, 'BaZrS3': 95.9,
+           'Cs2AgBiBr6': 97.2}
+GAP_NM = {'FASnI3': 879, 'Cu2AgBiI6': 602, 'BaZrS3': 639, 'Cs2AgBiBr6': 561}
+
+
+def end_label(ax, x, ys_names, logscale=False, dx=6, min_sep=None):
+    """Direct labels at line ends, nudged apart so they never collide."""
+    import numpy as _np
+    items = sorted(ys_names, key=lambda t: t[0])
+    ys = [_np.log10(v) if logscale else v for v, _, _ in items]
+    lo, hi = ax.get_ylim()
+    span = (_np.log10(hi) - _np.log10(lo)) if logscale else (hi - lo)
+    sep = min_sep if min_sep else 0.045 * span
+    for i in range(1, len(ys)):
+        if ys[i] - ys[i - 1] < sep:
+            ys[i] = ys[i - 1] + sep
+    for (v, name, col), y in zip(items, ys):
+        yy = 10 ** y if logscale else y
+        ax.annotate(name, xy=(x, v), xytext=(x + dx, yy), fontsize=6,
+                    color=col, va='center', ha='left',
+                    annotation_clip=False)
 
 NK = {'FASnI3': 'full3d/data/FASnI3_nk_Ghimire2017_SI.csv',
       'Cu2AgBiI6': 'data/optical_constants/Cu2AgBiI6_nk_Kamppinen2026.csv',
@@ -112,26 +136,48 @@ def panel_label(ax, s):
             fontsize=9, va='bottom', ha='left', color=S.INK)
 
 
-# ============================================================ Fig 1: optics in
+# ============================================================ Fig 2: optics in
 def fig_optical_inputs():
-    fig, axs = plt.subplots(1, 2, figsize=(S.COL2, 2.5), constrained_layout=True)
+    fig = plt.figure(figsize=(S.COL2, 2.9), constrained_layout=True)
+    gs = fig.add_gridspec(2, 2, height_ratios=[0.22, 1.0])
+    strip = fig.add_subplot(gs[0, :])
+    axs = [fig.add_subplot(gs[1, 0]), fig.add_subplot(gs[1, 1])]
+    # the sun these windows look at: AM1.5G photon flux, shared x
+    ld, irr = am15g()
+    phi = irr * (ld * 1e-9) / (H * C0)
+    m = (ld >= 300) & (ld <= 900)
+    strip.fill_between(ld[m], phi[m] / phi[m].max(), color=S.GRID, lw=0)
+    strip.set_xlim(300, 900); strip.set_ylim(0, 1.15)
+    strip.set_xticks([]); strip.set_yticks([])
+    strip.text(0.008, 0.72, 'AM1.5G photon flux', transform=strip.transAxes,
+               fontsize=6, color=S.INK_2)
+    for sp in strip.spines.values():
+        sp.set_visible(False)
+    nlab = []
     for A in ABS:
         lam, n, k = nk(A)
-        m = (lam >= 300) & (lam <= 900)
+        m2 = (lam >= 300) & (lam <= 900)
         c = S.PALETTE[ASLOT[A]]; d = S.DASHES[ASLOT[A]]
         kw = dict(color=c, lw=1.1)
         if d[0] is not None:
             kw['dashes'] = list(d)
-        axs[0].plot(lam[m], n[m], **kw)
-        axs[1].semilogy(lam[m], np.maximum(k[m], 1e-4), label=PRETTY[A], **kw)
-    axs[0].set_xlabel('Wavelength (nm)'); axs[0].set_ylabel('Refractive index $n$')
-    axs[1].set_xlabel('Wavelength (nm)'); axs[1].set_ylabel('Extinction coeff. $k$')
+        axs[0].plot(lam[m2], n[m2], **kw)
+        axs[1].semilogy(lam[m2], np.maximum(k[m2], 1e-4), label=PRETTY[A], **kw)
+        nlab.append((float(np.interp(897, lam, n)), PRETTY[A], c))
+        # each absorber's gap wavelength, marked where its window closes
+        axs[1].plot([GAP_NM[A]], [2.2], marker='v', ms=4, color=c,
+                    clip_on=False)
+    axs[0].set_xlabel('Wavelength (nm)')
+    axs[0].set_ylabel('Refractive index $n$')
+    axs[1].set_xlabel('Wavelength (nm)')
+    axs[1].set_ylabel('Extinction coeff. $k$')
     axs[1].set_ylim(1e-4, 3)
-    axs[1].legend(frameon=False, fontsize=6.5, loc='lower left', ncol=2)
+    axs[1].legend(frameon=False, fontsize=6, loc='lower left')
     for a in axs:
         a.set_xlim(300, 900); a.grid(True, color=S.GRID, lw=0.4)
+    end_label(axs[0], 897, nlab)
     panel_label(axs[0], '(a)'); panel_label(axs[1], '(b)')
-    S.save(fig, os.path.join(OUT, 'fig1_optical_inputs'))
+    S.save(fig, os.path.join(OUT, 'fig2_optical_inputs'))
     plt.close(fig)
 
 
@@ -155,36 +201,68 @@ def fig_absorptance_budget():
         a.set_ylim(0, 1); a.grid(True, color=S.GRID, lw=0.4)
     axs[0].legend(frameon=False, fontsize=6.5, loc='upper right')
 
-    # stacked loss budget, per absorber
-    ch = ['A_absorber', 'A_FTO_total', 'A_Au', 'R_implied']
-    lab = ['Absorber (useful)', 'FTO parasitic', 'Au contact', 'Reflected']
-    slot = [0, 1, 4, 5]
-    x = np.arange(len(ABS)); w = 0.62; bot = np.zeros(len(ABS))
-    for ci, (k, lb, sl) in enumerate(zip(ch, lab, slot)):
-        v = np.array([jflux(spectrum(A)['lambda_nm'], spectrum(A)[k]) for A in ABS])
-        axs[2].bar(x, v, w, bottom=bot, label=lb, color=S.PALETTE[sl],
-                   edgecolor='white', linewidth=0.5)
-        for xi, (vi, bi) in enumerate(zip(v, bot)):
-            if vi > 1.2:
-                axs[2].text(xi, bi + vi / 2, f'{vi:.1f}', ha='center',
-                            va='center', fontsize=6, color='white',
+    # follow the photons: optics stage, then the device stage beside it
+    x = np.arange(len(ABS)) * 2.1; w = 0.78
+    for xi, A in enumerate(ABS):
+        sp = spectrum(A)
+        vals = [(jflux(sp['lambda_nm'], sp['A_absorber']),
+                 S.PALETTE[ASLOT[A]], 'absorbed'),
+                (jflux(sp['lambda_nm'], sp['A_FTO_total']), ORANGE, 'FTO'),
+                (jflux(sp['lambda_nm'], sp['A_Au']), S.INK_2, 'Au'),
+                (jflux(sp['lambda_nm'], sp['R_implied']), S.PALETTE[5],
+                 'reflected')]
+        bot = 0.0
+        for v, c, _ in vals:
+            axs[2].bar(x[xi], v, w, bottom=bot, color=c, edgecolor='white',
+                       linewidth=0.6)
+            if v > 1.6:
+                axs[2].text(x[xi], bot + v / 2, f'{v:.1f}', ha='center',
+                            va='center', fontsize=5.6, color='white',
                             fontweight='bold')
-        bot += v
-    axs[2].set_xticks(x); axs[2].set_xticklabels([PRETTY[A] for A in ABS])
+            bot += v
+        # device stage: what the absorbed current becomes at the terminals
+        ceil, jsc = CEIL[A], DEV[A]['new'][0]
+        axs[2].bar(x[xi] + w + 0.08, jsc, w * 0.8, color=S.PALETTE[ASLOT[A]],
+                   edgecolor='white', linewidth=0.6)
+        axs[2].bar(x[xi] + w + 0.08, ceil - jsc, w * 0.8, bottom=jsc,
+                   color=S.GRID, edgecolor='white', linewidth=0.6)
+        if jsc > 1.6:
+            axs[2].text(x[xi] + w + 0.08, jsc / 2, f'{jsc:.1f}', ha='center',
+                        va='center', fontsize=5.6, color='white',
+                        fontweight='bold')
+        axs[2].text(x[xi] + w + 0.08, ceil + 0.7,
+                    f'{COLLECT[A]:.1f}\,\%', ha='center', fontsize=5.6,
+                    color=S.INK_2)
+        axs[2].text(x[xi] + (w + 0.08) / 2, -4.6,
+                    f'PCE {DEV[A]["new"][3]:.2f}\,\%', ha='center',
+                    fontsize=6, color=S.INK)
+    axs[2].set_xticks(x + (w + 0.08) / 2)
+    axs[2].set_xticklabels([PRETTY[A] for A in ABS])
+    axs[2].tick_params(axis='x', pad=14)
     axs[2].set_ylabel(r'Photocurrent (mA cm$^{-2}$)')
-    axs[2].legend(frameon=False, fontsize=6.5, ncol=4, loc='upper center',
-                  bbox_to_anchor=(0.5, 1.16))
+    axs[2].set_ylim(0, 38.5)
+    handles = [plt.Rectangle((0, 0), 1, 1, fc=c) for c in
+               ('#9a9a9a', ORANGE, S.INK_2, S.PALETTE[5], S.GRID)]
+    axs[2].legend(handles, ['absorbed (identity colour)', 'FTO parasitic',
+                            'Au', 'reflected', 'collection loss'],
+                  frameon=False, fontsize=5.6, ncol=5, loc='upper center',
+                  bbox_to_anchor=(0.5, 1.14), handlelength=1.1,
+                  columnspacing=0.9)
+    axs[2].text(0.01, 0.955, 'where the incident 33.7 mA cm$^{-2}$ goes: '
+                'optics bar, then device bar', transform=axs[2].transAxes,
+                fontsize=6, color=S.INK_2, style='italic')
     axs[2].grid(True, axis='y', color=S.GRID, lw=0.4)
     panel_label(axs[0], '(a)'); panel_label(axs[1], '(b)')
     axs[2].text(-0.075, 1.04, '(c)', transform=axs[2].transAxes,
                 fontweight='bold', fontsize=9, va='bottom', color=S.INK)
-    S.save(fig, os.path.join(OUT, 'fig2_absorptance_budget'))
+    S.save(fig, os.path.join(OUT, 'fig3_absorptance_budget'))
     plt.close(fig)
 
 
 # ============================================================== Fig 3: G(z)
 def fig_generation():
     fig, ax = plt.subplots(figsize=(S.COL1, 2.5), constrained_layout=True)
+    glab = []
     GZ = {A: f'f3d_{A}_planar_Gz_AM15G_forTransport.csv' for A in ABS}
     GZ['Cs2AgBiBr6'] = 'f3d_Cs2AgBiBr6_planar_Gz_AM15G_au80corr_forTransport.csv'
     for A in ABS:
@@ -193,13 +271,14 @@ def fig_generation():
         if d[0] is not None:
             kw['dashes'] = list(d)
         g = np.loadtxt(p('full3d/results', GZ[A]), delimiter=',', skiprows=1)
-        ax.semilogy(g[:, 0] * 1e9 - 280, g[:, 1], label=PRETTY[A], **kw)
+        ax.semilogy(g[:, 0] * 1e9 - 280, g[:, 1], **kw)
+        glab.append((float(g[-1, 1]), PRETTY[A], c))
     ax.set_xlabel('Depth from HTL interface (nm)')
     ax.set_ylabel(r'$G(z)$ (m$^{-3}$ s$^{-1}$)')
     ax.set_xlim(0, 300); ax.set_ylim(1e25, 3e28)
     ax.grid(True, color=S.GRID, lw=0.4)
-    ax.legend(frameon=False, fontsize=6.5, loc='upper left')
-    S.save(fig, os.path.join(OUT, 'fig3_generation'))
+    end_label(ax, 300, glab, logscale=True, dx=4)
+    S.save(fig, os.path.join(OUT, 'fig5_generation'))
     plt.close(fig)
 
 
@@ -212,8 +291,14 @@ def fig_jv():
         ax.plot(Vn, Jn, color=c, lw=1.3)
         ax.axhline(0, color=S.GRID, lw=0.5)
         jn, vn, fn_, pn = DEV[A]['new']
+        ceil = CEIL[A]
+        ax.axhline(ceil, color=S.INK_2, lw=0.8, dashes=[5, 2])
+        ax.text(0.985, ceil, f'optical ceiling {ceil:.2f}  '
+                f'({COLLECT[A]:.1f}\,% collected)', ha='right',
+                va='bottom', fontsize=5.4, color=S.INK_2,
+                transform=ax.get_yaxis_transform())
         ax.set_xlim(0, Vn.max())
-        ax.set_ylim(min(-1.0, -0.05 * jn), 1.18 * jn)
+        ax.set_ylim(min(-1.0, -0.05 * jn), 1.14 * ceil)
         ax.text(0.035, 0.94, PRETTY[A], transform=ax.transAxes, fontsize=8,
                 fontweight='bold', va='top')
         ax.text(0.035, 0.80,
@@ -231,8 +316,8 @@ def fig_jv():
 
 
 if __name__ == '__main__':
-    fig_optical_inputs();      print('fig1 optical inputs      OK')
-    fig_absorptance_budget();  print('fig2 absorptance+budget  OK')
-    fig_generation();          print('fig3 generation          OK')
+    fig_optical_inputs();      print('fig2 optical inputs      OK')
+    fig_absorptance_budget();  print('fig3 absorptance+budget  OK')
+    fig_generation();          print('fig5 generation          OK')
     fig_jv();                  print('fig4 J-V                 OK')
     print(f'-> {OUT}')

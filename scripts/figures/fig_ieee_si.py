@@ -27,7 +27,8 @@ KB = 1.380649e-23; QE = 1.602176634e-19; HP = 6.62607015e-34
 ABS = ['FASnI3', 'Cu2AgBiI6', 'BaZrS3', 'Cs2AgBiBr6']
 PRETTY = {'FASnI3': r'FASnI$_3$', 'Cu2AgBiI6': r'Cu$_2$AgBiI$_6$',
           'BaZrS3': r'BaZrS$_3$', 'Cs2AgBiBr6': r'Cs$_2$AgBiBr$_6$'}
-ASLOT = {'FASnI3': 0, 'Cu2AgBiI6': 1, 'BaZrS3': 2, 'Cs2AgBiBr6': 3}
+ASLOT = {'FASnI3': 0, 'Cu2AgBiI6': 4, 'BaZrS3': 2, 'Cs2AgBiBr6': 3}
+ORANGE = '#eb6834'
 AREA = (350e-9) ** 2
 
 
@@ -173,9 +174,9 @@ def si_subgap():
     lam, A = s['lambda_nm'], s['A_absorber']
     lg = 1239.841984 / 2.06
     fig, axs = plt.subplots(1, 2, figsize=(S.COL2, 2.4), constrained_layout=True)
-    axs[0].plot(lam, A, color=S.PALETTE[1], lw=1.2)
+    axs[0].plot(lam, A, color=S.PALETTE[4], lw=1.2)
     axs[0].axvline(lg, color=S.INK_2, lw=0.9, dashes=[3, 2])
-    axs[0].fill_between(lam, 0, A, where=(lam >= lg), color=S.PALETTE[1],
+    axs[0].fill_between(lam, 0, A, where=(lam >= lg), color=S.PALETTE[4],
                         alpha=0.25)
     axs[0].annotate(f'Tauc gap 2.06 eV\n({lg:.0f} nm)', xy=(lg, 0.85),
                     xytext=(lg + 55, 0.9), fontsize=6, color=S.INK_2,
@@ -184,10 +185,10 @@ def si_subgap():
     axs[0].set_xlim(300, 900); axs[0].set_ylim(0, 1)
     axs[0].grid(True, color=S.GRID, lw=0.4)
 
-    segs = [('300-602\nabove gap', 300, lg, 0),
-            ('602-700\nUrbach tail', lg, 700, 1),
+    segs = [('300-602\nabove gap', 300, lg, 4),
+            ('602-700\nUrbach tail', lg, 700, 2),
             ('700-750\nweak tail', 700, 750, 3),
-            ('750-886\nflat-$\\alpha$\nartefact', 750, 886, 5)]
+            ('750-886\nflat-$\\alpha$\nartefact', 750, 886, 1)]
     vals = [jflux(lam, A, a, b) for _, a, b, _ in segs]
     tot = jflux(lam, A)
     axs[1].bar(range(len(segs)), vals, 0.62,
@@ -213,7 +214,7 @@ def si_voc_grid():
     runs = [('Mixed 1--25 mV grid', 'results/jv_s62_cabi_mixedgrid.csv',
              S.INK_2, [4, 1.5]),
             ('Uniform 1 mV grid', 'results/jv_f3d_cabi_light_base_dense.csv',
-             S.PALETTE[1], None)]
+             S.PALETTE[4], None)]
     for lbl_, f, c, dsh in runs:
         V, J = jv(f)
         kw = dict(color=c, lw=1.2)
@@ -235,7 +236,7 @@ def si_voc_grid():
     axs[1].text(0.5, 0.92, 'pre-$V_{oc}$ tail (magnified)',
                 transform=axs[1].transAxes, ha='center', fontsize=6.5,
                 color=S.INK_2, style='italic')
-    for vv, cc in [(1.515, S.INK_2), (1.384, S.PALETTE[1])]:
+    for vv, cc in [(1.515, S.INK_2), (1.384, S.PALETTE[4])]:
         axs[1].axvline(vv, color=cc, lw=0.7, dashes=[2, 2])
         axs[1].text(vv, 0.26, f'{vv:.3f} V', rotation=90, fontsize=5.8,
                     color=cc, ha='right', va='top')

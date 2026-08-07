@@ -35,7 +35,8 @@ S.apply()
 ABS = ['FASnI3', 'Cu2AgBiI6', 'BaZrS3', 'Cs2AgBiBr6']
 PRETTY = {'FASnI3': r'FASnI$_3$', 'Cu2AgBiI6': r'Cu$_2$AgBiI$_6$',
           'BaZrS3': r'BaZrS$_3$', 'Cs2AgBiBr6': r'Cs$_2$AgBiBr$_6$'}
-ASLOT = {'FASnI3': 0, 'Cu2AgBiI6': 1, 'BaZrS3': 2, 'Cs2AgBiBr6': 3}
+ASLOT = {'FASnI3': 0, 'Cu2AgBiI6': 4, 'BaZrS3': 2, 'Cs2AgBiBr6': 3}
+FF = {'FASnI3': 0.509, 'Cu2AgBiI6': 0.518, 'BaZrS3': 0.340, 'Cs2AgBiBr6': 0.281}
 
 # Electron affinity and gap, in eV. Absorber values are the base cases of the
 # device runs; transport-layer values are the fixed literature set.
@@ -98,19 +99,40 @@ def fig_band_alignment():
             is_lim = is_c == etl_limited
             col = S.PALETTE[1] if is_lim else S.INK_2
             if is_lim:
-                # the offset that limits the device: full double arrow
-                ax.annotate('', xy=(x, cb2), xytext=(x, cb1),
-                            arrowprops=dict(arrowstyle='<->', color=col, lw=1.6,
-                                            shrinkA=0, shrinkB=0), zorder=4)
-                ax.text(x + 0.10, (cb1 + cb2) / 2, f'{abs(dE):.2f}',
-                        fontsize=7, color=col, va='center', ha='left',
+                hi, lo = max(cb1, cb2), min(cb1, cb2)
+                # literal cliff: bold terrain step traced along the two edges
+                if is_c:                      # electron cliff at the ETL side
+                    cx = [x + 0.55, x, x, x - 0.45]
+                else:                         # hole cliff at the HTL side
+                    cx = [x - 0.55, x, x, x + 0.45]
+                ax.plot(cx, [hi, hi, lo, lo], color=col, lw=2.6,
+                        solid_capstyle='round', zorder=4)
+                # carrier glyph at the cliff edge, tumbling over it
+                gx = x + (0.16 if is_c else -0.16)
+                ax.plot([gx], [hi + 0.18], 'o', ms=6.6, mfc='white', mec=col,
+                        mew=1.3, zorder=6)
+                ax.text(gx, hi + 0.18, 'e$^-$' if is_c else 'h$^+$',
+                        fontsize=5.6, ha='center', va='center', color=col,
+                        zorder=7)
+                ax.annotate('', xy=(x + (0.34 if is_c else -0.34),
+                                    lo + 0.10),
+                            xytext=(gx + (0.10 if is_c else -0.10), hi),
+                            arrowprops=dict(arrowstyle='->', color=col, lw=1.0,
+                                            connectionstyle='arc3,rad'
+                                            + ('=-0.35' if is_c else '=0.35')),
+                            zorder=6)
+                ax.text(x + (-0.12 if is_c else 0.12), (hi + lo) / 2,
+                        f'{abs(dE):.2f}', fontsize=7, color=col,
+                        va='center', ha='right' if is_c else 'left',
                         fontweight='bold', zorder=5)
             else:
-                # the other offset is small; an arrow would be arrowheads only,
-                # so mark it with a plain tick and label placed clear of it
                 ax.plot([x, x], [cb1, cb2], color=col, lw=0.9, zorder=4)
                 ax.text(x + 0.10, (cb1 + cb2) / 2 - 0.30, f'{abs(dE):.2f}',
                         fontsize=6, color=col, va='center', ha='left', zorder=5)
+        # the price of the cliff, printed with the mechanism
+        ax.text(0.5, 0.035, f'FF {FF[A]:.3f}', transform=ax.transAxes,
+                ha='center', fontsize=7, color=S.PALETTE[1],
+                fontweight='bold')
 
         ax.set_xlim(-0.05, 3.75); ax.set_ylim(E_FLOOR, -1.15)
         ax.set_xticks([0.5, 1.8, 3.1])
@@ -127,7 +149,7 @@ def fig_band_alignment():
     for ax, s in zip(axs, ['(a)', '(b)', '(c)', '(d)']):
         ax.text(-0.02, 1.06, s, transform=ax.transAxes, fontweight='bold',
                 fontsize=9, va='bottom', ha='left', color=S.INK)
-    S.save(fig, os.path.join(OUT_MAIN, 'fig5_band_alignment'))
+    S.save(fig, os.path.join(OUT_MAIN, 'fig1_band_alignment'))
     plt.close(fig)
     for A in ABS:
         dEc = -CHI[A] + CHI_ETL
@@ -174,6 +196,11 @@ def fig_generation_map():
         im = ax.pcolormesh(L, depth, M.T, cmap='magma',
                            norm=LogNorm(vmin=1e1, vmax=4.5e4), shading="gouraud")
         ims.append(im)
+        edge = {'FASnI3': 879, 'Cu2AgBiI6': 700, 'BaZrS3': 660,
+                'Cs2AgBiBr6': 570}[A]
+        ax.axvline(edge, color='white', lw=0.8, dashes=[3, 2], alpha=0.85)
+        ax.text(edge - 12, 288, f'$\\lambda_{{edge}}$', fontsize=5.4,
+                color='white', ha='right', va='bottom')
         ax.set_xlim(300, 900); ax.set_ylim(depth.max(), 0)
         ax.set_xlabel('Wavelength (nm)')
         ax.set_title(PRETTY[A], fontsize=8, pad=3)
@@ -190,5 +217,5 @@ def fig_generation_map():
 
 
 if __name__ == '__main__':
-    fig_band_alignment();  print('fig5  band alignment (MAIN)   OK')
+    fig_band_alignment();  print('fig1  band alignment (MAIN)   OK')
     fig_generation_map();  print('figS6 G(z,lambda) map (SI)    OK')
