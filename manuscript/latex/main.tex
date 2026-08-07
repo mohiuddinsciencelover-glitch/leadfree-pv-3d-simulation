@@ -75,11 +75,11 @@ generation profile, fix poorly known parameters, and rarely disclose parameter
 provenance, yielding projected efficiencies difficult to reconcile with
 experiment. We report a unified opto-electro-thermal finite-element study of four chemically distinct lead-free absorbers (\BZS,
 \FASnI, \CABB, \CABI) in a single fixed architecture, coupling full-wave
-electromagnetic optics to drift--diffusion transport, with every fixed
+electromagnetic optics to drift-diffusion transport, with every fixed
 parameter literature-sourced and provenance-graded and every uncertain
 parameter swept. Maxwell's equations are solved coherently on the real
-multilayer stack rather than a Beer--Lambert generation profile being
-prescribed, as is standard in this literature; every result closes its
+multilayer stack rather than a Beer-Lambert generation profile being
+prescribed, as is standard in this literature. Every result closes its
 AM1.5G-weighted optical energy budget to $\pm0.00\,\%$ (worst per-wavelength
 residual $1.4\,\%$) and reproduces its photocurrent
 through two independent integration routes to within $0.05\,\%$, and the
@@ -126,17 +126,17 @@ engineering~\cite{he2025}, though Sn$^{2+}\!\rightarrow$Sn$^{4+}$ oxidation
 remains their governing stability problem~\cite{yang2017}.
 \emph{Chalcogenide perovskites} such as \BZS{} replace halide with sulfide, a
 chemistry pursued for its thermal and moisture robustness, and their electronic
-structure is now characterized at the many-body level~\cite{kumar2021}; their
+structure is now characterized at the many-body level~\cite{kumar2021}. Their
 photovoltaic literature, however, remains overwhelmingly computational, with
-SCAPS-1D optimizations projecting $22$--$34\,\%$
+SCAPS-1D optimizations projecting $22$ to $34\,\%$
 efficiencies~\cite{sowayan2025,guo2025} that far outrun nascent experimental
 demonstrations. \emph{Halide double perovskites} such as \CABB{} restore full
 inorganic stability, but wide indirect gaps and sluggish transport cap
 experimental single-junction PCE near
 $6\,\%$~\cite{zhang2022,li2021review} (a record that itself required
-gap-narrowing hydrogenation; the same work's untreated control reached
-$0.55\,\%$~\cite{zhang2022}); \CABB{} is also the one absorber of the four
-with a prior three-dimensional optical--electrical simulation~\cite{moed2026}. \emph{Quaternary
+gap-narrowing hydrogenation, while the same work's untreated control reached
+$0.55\,\%$~\cite{zhang2022}). \CABB{} is also the one absorber of the four
+with a prior three-dimensional optical-electrical simulation~\cite{moed2026}. \emph{Quaternary
 bismuth/silver iodides} such as \CABI{} are strongly absorbing, air-stable,
 wide-gap semiconductors attractive for tandem top cells and indoor
 harvesting~\cite{sansom2021,moon2025}, yet their experimental efficiencies
@@ -157,16 +157,16 @@ projected above $25\,\%$ on paper.
 
 This work addresses those gaps with a unified opto-electro-thermal
 finite-element study of the four absorbers in a fixed architecture. Full-wave electromagnetic optics feed a finite-volume
-drift--diffusion transport model; every fixed material parameter is
+drift-diffusion transport model. Every fixed material parameter is
 literature-sourced with an explicit provenance status, and each genuinely
 uncertain quantity is treated as a sensitivity sweep. Three results follow.
-First, under defect-free interfaces no device is optically limited; each is
+First, under defect-free interfaces no device is optically limited. Each is
 limited by a band-offset cliff at a transport interface, and the four
 partition into two mechanistic classes according to which contact carries
 that cliff. Second, parasitic absorption in the transparent conductor is a
 first-order loss in every device, exceeding the absorber's own photocurrent
 in the most weakly absorbing case. Third, methodologically, every optical
-result is validated three independent ways -- including against an analytic
+result is validated three independent ways, including against an analytic
 transfer-matrix limit, a discipline that caught a geometric idealization
 which would otherwise have silently inflated one absorber's photocurrent by
 $4\,\%$.
@@ -174,7 +174,7 @@ $4\,\%$.
 \section{Computational Method}
 All devices were simulated in COMSOL Multiphysics (v6.2 locally, v6.3 on the
 compute server) using a single self-consistent workflow coupling full-wave
-electromagnetic optics to finite-volume drift--diffusion transport, with an
+electromagnetic optics to finite-volume drift-diffusion transport, with an
 additional steady-state heat-transfer problem for \CABB.
 
 The governing principle for parameterization was to admit no unjustified point
@@ -199,7 +199,7 @@ above, and a scattering boundary condition at the illuminated plane.
 
 \subsection{Optical model}
 The electromagnetic problem is solved in the frequency domain, total-field
-formulation, for 61 wavelengths spanning $300$--$900\,\mathrm{nm}$ at
+formulation, for 61 wavelengths spanning $300$ to $900\,\mathrm{nm}$ at
 $10\,\mathrm{nm}$ resolution under AM1.5G illumination~\cite{astm_g173}.
 Absorbed power density is integrated per layer, giving a closed optical
 budget: absorber plus each parasitic layer plus reflectance equals incident.
@@ -210,34 +210,34 @@ tabulated ellipsometry with a photothermal-deflection sub-gap tail for
 dielectric function for \BZS~\cite{nishigaki2020}. For \CABB{} no measured
 dielectric function of comparable spectral completeness has been published,
 and the HSE06-computed response of~\cite{eddekkar2024} is used instead, via
-its conductivity panel -- that source's
+its conductivity panel. That source's
 absorption-coefficient panel is internally inconsistent with its own
 conductivity and dielectric panels by a factor of $2\pi$, which we confirmed
 by an independent re-digitization (the conductivity route gives
-$\alpha_\mathrm{true}/\alpha_\mathrm{panel} = 5.98$--$6.21$ over
-$3.8$--$4.4\,$eV, consistent with $2\pi = 6.28$), so the mutually consistent
+$\alpha_\mathrm{true}/\alpha_\mathrm{panel} = 5.98$ to $6.21$ over
+$3.8$ to $4.4\,$eV, consistent with $2\pi = 6.28$), so the mutually consistent
 conductivity/dielectric panels are used and the $\alpha$ panel is not. The contacts use measured
-SnO$_2$:F dispersion~\cite{vonrottkay1996} and Au~\cite{mcpeak2015}; \TiOx{}
+SnO$_2$:F dispersion~\cite{vonrottkay1996} and Au~\cite{mcpeak2015}. \TiOx{}
 uses a Sellmeier index~\cite{devore1951}.
 
-Two aspects require care; mishandling either silently corrupts the per-layer
+Two aspects require care. Mishandling either silently corrupts the per-layer
 absorption partition. First, \emph{Floquet periodic boundaries require the paired faces to
 carry identical surface meshes.} A free-tetrahedral mesher does not produce
 this, and the solver then interpolates across the mismatch without raising an
-error; the computed absorptance wanders with every remesh. On this stack,
+error. The computed absorptance wanders with every remesh. On this stack,
 absorber absorptance at $700\,\mathrm{nm}$ took values $0.719$, $0.663$ and
 $0.463$ on meshes differing by $2.4\,\%$ in element count, a $36\,\%$ swing.
 The fix is to mesh one face of each pair with a free-triangular operation and
-copy it onto the opposite face before the tetrahedral fill; the same
+copy it onto the opposite face before the tetrahedral fill. The same
 comparison then gives $0.783103$ versus $0.782888$ ($0.03\,\%$). Critically,
 \emph{the energy-conservation residual does not detect this error}: it
 compares total absorbed power against total incident flux and is blind to how
 that total is partitioned between layers, which is exactly what the
 photocurrent depends on.
 
-Second, meshes are banded by wavelength ($300$--$390$, $400$--$590$,
-$600$--$900\,\mathrm{nm}$) because element count scales as $\lambda^{-3}$;
-element size is set per material as $\lambda/(n_\mathrm{eff}\,\mathrm{ppw})$
+Second, meshes are banded by wavelength ($300$ to $390$, $400$ to $590$,
+$600$ to $900\,\mathrm{nm}$) because element count scales as $\lambda^{-3}$.
+Element size is set per material as $\lambda/(n_\mathrm{eff}\,\mathrm{ppw})$
 with $n_\mathrm{eff}=|\tilde{n}|$, subject to a skin-depth clamp and a floor of
 three elements per layer thickness. Wavelengths at the band boundaries are
 solved on both neighbouring meshes as a seam check.
@@ -249,18 +249,18 @@ endpoints.
 For the laterally uniform stacks considered here at normal incidence, the
 periodic three-dimensional problem is mathematically equivalent to a
 one-dimensional coherent multilayer problem. The finite-element framework is
-used because it extends unchanged to non-planar geometry; Section~II-E
+used because it extends unchanged to non-planar geometry. Section~II-E
 verifies it against that analytic limit, which is also what exposed the one
 place where a geometric idealization mattered.
 
 \subsection{Electrical and thermal models}
-Transport is finite-volume drift--diffusion with Fermi--Dirac statistics,
-Shockley--Read--Hall recombination, and a radiative term
+Transport is finite-volume drift-diffusion with Fermi-Dirac statistics,
+Shockley-Read-Hall recombination, and a radiative term
 $R = B(np-n_i^2)$ whose coefficient $B$ is derived from the van
-Roosbroeck--Shockley relation~\cite{vanroosbroeck1954} using the same optical
+Roosbroeck-Shockley relation~\cite{vanroosbroeck1954} using the same optical
 constants that drive the optical model, making it parameter-free rather than
 fitted. Heterojunctions are treated in both quasi-Fermi-continuity and
-thermionic-emission modes; the two agree to $0.2\,\%$. The broadband
+thermionic-emission modes. The two agree to $0.2\,\%$. The broadband
 generation profile $G(z)$ from the optical stage is laterally averaged and
 supplied to the transport model. For \CABB{} a steady-state heat-transfer
 problem is coupled to the optical and electrical stages, following coupled
@@ -268,40 +268,40 @@ opto-electro-thermal treatments of lead-based
 devices~\cite{saxena2019,bahrami2024,suldozi2026} and motivated by the
 reported sensitivity of self-heating to active-material
 properties~\cite{kamppinen2024}, with per-layer thermal conductivities
-literature-cited~\cite{mun2007,oka2014,ho1972,zheng2024,li_cs2agbibr6_kappa};
-no direct Spiro-OMeTAD measurement exists, so its value is a disclosed proxy
+literature-cited~\cite{mun2007,oka2014,ho1972,zheng2024,li_cs2agbibr6_kappa}.
+No direct Spiro-OMeTAD measurement exists, so its value is a disclosed proxy
 from a structurally similar small-molecule organic
 semiconductor~\cite{wang2015}. The
-thermal stage was closed before the final refinement of the optical inputs;
-the quoted temperature coefficient is a relative quantity, robust to the
+thermal stage was closed before the final refinement of the optical inputs.
+The quoted temperature coefficient is a relative quantity, robust to the
 subsequent generation-profile rescale, and absolute operating temperatures
 are therefore not quoted.
 
 \subsection{Numerical procedure and validation}
 Every result carries three independent checks. The optical budget must close,
 and the depth integral of $G(z)$ must reproduce the photocurrent obtained
-independently from the spectral integral of layer absorptance; these are
+independently from the spectral integral of layer absorptance. These are
 different routes through the same solve. Across all four absorbers the budget
 closes to $\pm0.00\,\%$, the worst per-wavelength energy residual is
 $-1.43\,\%$, the two photocurrent routes agree within $0.05\,\%$, and band
-seams agree to $0.020$--$0.096\,\%$. Third, an independent scalar
+seams agree to $0.020$ to $0.096\,\%$. Third, an independent scalar
 transfer-matrix calculation with identical optical inputs and identical
 geometry reproduces the finite-element absorber absorptance to within
 $7\times10^{-4}$ at every wavelength and the photocurrent to
-$\leq0.02\,\%$, for all four absorbers (Fig.~S7) -- a different solver
+$\leq0.02\,\%$, for all four absorbers (Fig.~S7): a different solver
 checked against the analytic planar limit, not another route through the same
 solve. This third check exposed a real artifact: the optical model truncates
 the Au contact at $45\,\mathrm{nm}$ over a perfect electric conductor,
-justified by Au's $12$--$17\,\mathrm{nm}$ near-infrared skin depth, but Au's
-damping dips in its $450$--$570\,\mathrm{nm}$ interband window, and \CABB{}
+justified by Au's $12$ to $17\,\mathrm{nm}$ near-infrared skin depth, but Au's
+damping dips in its $450$ to $570\,\mathrm{nm}$ interband window, and \CABB{}
 is the one absorber transparent exactly there. The truncation inflated its
-ceiling by $4.3\,\%$; all \CABB{} results below use the corrected
+ceiling by $4.3\,\%$. All \CABB{} results below use the corrected
 thick-contact limit, computed with the validated transfer-matrix method and
 re-solved through transport (Supplementary Section~S3).
 
-Device $J$--$V$ curves use continuation in applied bias. For \CABI{} a
+Device $J$-$V$ curves use continuation in applied bias. For \CABI{} a
 $25\,\mathrm{mV}$ grid lands on spurious negative-differential-resistance
-branches; a $1\,\mathrm{mV}$ grid removes them, and only the dense result is
+branches. A $1\,\mathrm{mV}$ grid removes them, and only the dense result is
 quoted.
 
 \section{Results}
@@ -309,8 +309,8 @@ quoted.
 \subsection{Full-wave optics and the current ceilings}
 Fig.~\ref{fig:optics} shows the optical constants and
 Fig.~\ref{fig:budget} the resulting absorptance, reflectance and closed loss
-budget. The optical current ceiling -- the photocurrent at $100\,\%$
-collection -- is $20.450$, $15.083$, $10.306$ and $2.440$\percm{} for
+budget. The optical current ceiling, the photocurrent at $100\,\%$
+collection, is $20.450$, $15.083$, $10.306$ and $2.440$\percm{} for
 \FASnI, \CABI, \BZS{} and \CABB{} respectively
 (Table~\ref{tab:devices}).
 
@@ -318,14 +318,14 @@ collection -- is $20.450$, $15.083$, $10.306$ and $2.440$\percm{} for
 \centering
 \includegraphics[width=\columnwidth]{figures/fig1_optical_inputs.pdf}
 \caption{Optical constants of the four absorbers over
-$300$--$900\,\mathrm{nm}$: (a)~refractive index $n$; (b)~extinction
+$300$ to $900\,\mathrm{nm}$: (a)~refractive index $n$ and (b)~extinction
 coefficient $k$ (logarithmic).}
 \label{fig:optics}
 \end{figure}
 
 \BZS's comparatively low ceiling follows from a deliberate data choice: the
 measured ellipsometric dielectric function~\cite{nishigaki2020} is adopted
-over Kramers--Kronig reconstructions of computed spectra, which zero-pad
+over Kramers-Kronig reconstructions of computed spectra, which zero-pad
 inside the material's own absorption range (Fig.~S1). The measured data has
 weak near-edge absorption: the source states $E_g = 1.94$\,eV, and the
 parameterized spectrum's absorptance falls below the $1\,\%$ level beyond
@@ -346,12 +346,12 @@ $33.74$\percm{} in every case.}
 
 The loss budget (Fig.~\ref{fig:budget}c) shows the parasitic cost of the
 transparent conductor is first-order for every absorber, ranging from
-$7.2$\percm{} (\FASnI) to $9.8$\percm{} (\CABB); in the weakly absorbing
+$7.2$\percm{} (\FASnI) to $9.8$\percm{} (\CABB). In the weakly absorbing
 double perovskite the contact absorbs four times more photocurrent than the
 absorber does.
 
 \subsection{Devices of record}
-Fig.~\ref{fig:jv} shows the $J$--$V$ characteristics and
+Fig.~\ref{fig:jv} shows the $J$-$V$ characteristics and
 Table~\ref{tab:devices} the metrics, alongside each absorber's optical
 ceiling and the resulting collection efficiency.
 
@@ -361,14 +361,14 @@ ceiling and the resulting collection efficiency.
 \caption{Broadband AM1.5G generation profiles $G(z)$ through the
 $300\,\mathrm{nm}$ absorber, plotted from the hole-transport interface.
 The strong absorbers front-load generation toward the illuminated (electron-
-contact) face; \CABB{} generates almost uniformly.}
+contact) face. \CABB{} generates almost uniformly.}
 \label{fig:gen}
 \end{figure}
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=\columnwidth]{figures/fig4_jv.pdf}
-\caption{Device $J$--$V$ characteristics of the four absorbers on their
+\caption{Device $J$-$V$ characteristics of the four absorbers on their
 full-wave generation profiles, with the extracted $V_\mathrm{oc}$, FF and
 PCE annotated per panel.}
 \label{fig:jv}
@@ -405,7 +405,7 @@ illuminated face (Figs.~\ref{fig:gen} and~S6), far from the hole contact,
 and the difference is lost to bulk recombination in transit. \CABB,
 absorbing weakly and generating almost uniformly through the depth, collects
 $97\,\%$ despite far worse transport. Where in the depth carriers are
-deposited therefore matters as much as how many are generated -- a
+deposited therefore matters as much as how many are generated, a
 distinction a prescribed exponential profile cannot express.
 
 \subsection{Two classes of interface cliff}
@@ -416,8 +416,8 @@ interface, and the four materials partition into two classes
 $0.93\,$eV respectively, which permits interfacial recombination and caps fill
 factor. \BZS{} and \CABB{} are limited by a \emph{valence-band cliff at the
 Spiro-OMeTAD hole contact}~\cite{eya_dzade}, $0.93\,$eV and $1.27\,$eV, which blocks forward
-hole injection, produces an S-shaped $J$--$V$ characteristic and collapses
-fill factor to $0.28$--$0.34$ -- the hole-side analogue of the band-offset
+hole injection, produces an S-shaped $J$-$V$ characteristic and collapses
+fill factor to $0.28$ to $0.34$, the hole-side analogue of the band-offset
 barrier mechanism established for conduction-band spikes at CIS window
 layers~\cite{minemoto2001}.
 
@@ -443,16 +443,16 @@ swept range and is stable within it.
 \subsection{Two natures of the open-circuit voltage}
 An independent axis distinguishes how $V_\mathrm{oc}$ is set. For \FASnI{} the
 radiative term dominates and $V_\mathrm{oc}$ is pinned near its radiative
-limit. For the bismuth halides, bulk Shockley--Read--Hall recombination sets
+limit. For the bismuth halides, bulk Shockley-Read-Hall recombination sets
 it.
 
 \BZS{} belongs to neither category. Its radiative coefficient, derived from
-the van Roosbroeck--Shockley relation over the measured optical constants
+the van Roosbroeck-Shockley relation over the measured optical constants
 (Fig.~S5), is $B_\mathrm{rad} = 5.37\times10^{-12}\,\mathrm{cm^3\,s^{-1}}$,
 and the device is insensitive to it: re-solving with a coefficient
 $435\times$ larger moves $V_\mathrm{oc}$ by only $3\,\mathrm{mV}$ and PCE
 by $0.02$ points. \BZS's $V_\mathrm{oc}$ is therefore not radiatively
-limited; it is set by dark current through the Spiro injection barrier.
+limited. It is set by dark current through the Spiro injection barrier.
 
 \subsection{Numerical fidelity and disclosures}
 Three caveats must be stated explicitly.
@@ -463,7 +463,7 @@ artifact of the electromagnetic solve: the optical file is constructed from
 tabulated ellipsometry above $2.0\,$eV~\cite{kamppinen2026} and a
 photothermal-deflection tail shape below it~\cite{sansom2021}, zeroed under
 $1.40\,$eV. Consequently the ratio of photocurrent to the detailed-balance
-ceiling at $2.06\,$eV reads $114\,\%$, which is meaningless; we therefore
+ceiling at $2.06\,$eV reads $114\,\%$, which is meaningless. We therefore
 report the above-gap/sub-gap split rather than a ceiling fraction. Within that
 sub-gap current, $0.908$\percm{} ($6.0\,\%$ of the total) arises from a
 segment where the absorption coefficient stops decaying and sits flat at
@@ -472,26 +472,25 @@ stepping to zero, a construction artifact rather than a physical Urbach tail.
 An optical ceiling credits all of these carriers at $100\,\%$ collection,
 which is optimistic for tail states. Re-solving the device on restricted
 generation profiles bounds the assumption (Supplementary Section~S7): with
-the artifact removed but the measured tail kept, PCE is $10.10\,\%$; with no
-sub-gap collection at all, $6.98\,\%$. The full-collection $10.76\,\%$ of
+the artifact removed but the measured tail kept, PCE is $10.10\,\%$, and with no
+sub-gap collection at all it is $6.98\,\%$. The full-collection $10.76\,\%$ of
 Table~\ref{tab:devices} is therefore the optimistic end of a $[6.98, 10.76]\,\%$ bracket
 whose defensible central value is $10.10\,\%$.
 
 \emph{\CABI{} open-circuit voltage is not grid-converged.} The same model on a
-mixed $1$--$25\,\mathrm{mV}$ continuation grid gives $V_\mathrm{oc} =
+mixed $1$ to $25\,\mathrm{mV}$ continuation grid gives $V_\mathrm{oc} =
 1.515\,$V and on a uniform $1\,\mathrm{mV}$ grid $1.384\,$V, a $131\,$mV
 spread. Maximum power, $V_\mathrm{mpp}$ and $J_\mathrm{mpp}$ are identical to
 five significant figures ($10.761\,\mathrm{mW\,cm^{-2}}$, $0.786\,$V,
 $13.691$\percm), so PCE is unaffected (Fig.~S4). The cause is physical: the ETL cliff
 makes the pre-$V_\mathrm{oc}$ tail nearly flat, so a $0.08$\percm{} numerical
 difference moves the zero crossing enormously. $V_\mathrm{oc}$ is poorly
-conditioned for this absorber; $P_\mathrm{max}$-derived metrics are robust.
+conditioned for this absorber. $P_\mathrm{max}$-derived metrics are robust.
 A related gap-choice test (Supplementary Section~S2) re-solved \CABB{} at its
 $2.21\,$eV optical onset and \BZS{} at the $1.94\,$eV gap stated by its
 optical source: PCE is
 invariant to four decimals in both, with the shift appearing entirely in
-$V_\mathrm{oc}$ (${\approx}\Delta E_g$) and compensated by the fill factor --
-the disclosed gap inconsistencies do not affect any efficiency conclusion.
+$V_\mathrm{oc}$ (${\approx}\Delta E_g$) and compensated by the fill factor. The disclosed gap inconsistencies do not affect any efficiency conclusion.
 
 \emph{Lossless transport layers.} \TiOx{}~\cite{devore1951} and Spiro-OMeTAD
 are modeled with real-only refractive indices ($k=0$), so their budget entries
@@ -505,9 +504,9 @@ Three design consequences follow.
 
 \emph{Transport-layer band engineering is the operative problem.} With
 defect-free interfaces three of the four devices already collect
-$96$--$99.6\,\%$ of their available photocurrent, and the fourth (\FASnI,
-at $77\,\%$) loses the remainder to bulk recombination rather than optics;
-further absorber optimization cannot address what limits any of them. The cliff taxonomy identifies which contact to change for which
+$96$ to $99.6\,\%$ of their available photocurrent, and the fourth (\FASnI,
+at $77\,\%$) loses the remainder to bulk recombination rather than optics.
+Further absorber optimization cannot address what limits any of them. The cliff taxonomy identifies which contact to change for which
 material: \FASnI{} and \CABI{} need a shallower-affinity electron contact,
 \BZS{} and \CABB{} a deeper-HOMO hole contact. For \BZS{} neither
 Spiro-OMeTAD~\cite{rahman2023} nor CuO~\cite{elnaggar2024}
@@ -521,19 +520,19 @@ generated. Any light-management claim benchmarked only on absorptance may
 overstate its device benefit.
 
 \emph{Parasitic absorption in the transparent conductor is first-order.} It
-costs $7.2$--$9.8$\percm{} across the four devices, and for \CABB{} the
+costs $7.2$ to $9.8$\percm{} across the four devices, and for \CABB{} the
 contact absorbs four times more photocurrent than the absorber does. Any
 optical improvement to these stacks must be assessed against this loss
 channel, not against reflection alone.
 
 For \CABB{} the closed thermal loop indicates a benign relative temperature
-coefficient of $\approx-0.12\,\%\,\mathrm{K}^{-1}$; this figure was
+coefficient of $\approx-0.12\,\%\,\mathrm{K}^{-1}$. This figure was
 obtained with the pre-refinement optical inputs (Sec.~II) and is quoted here,
 rather than among the results, as a relative quantity robust to the
 generation rescale.
 
 \emph{Limitations.} Interfaces are defect-free, so reported efficiencies are
-upper bounds; no literature interface-recombination data exists for these
+upper bounds. No literature interface-recombination data exists for these
 material pairs, and junction recombination is not representable by the
 solver's surface-recombination feature in this formulation (Supplementary
 Section~S8). Because the limiting mechanism is carrier accumulation at a
@@ -547,12 +546,12 @@ do not model as distinct from band-edge carriers.
 A unified opto-electro-thermal study of four chemically distinct lead-free
 absorbers in a fixed architecture, with coherent full-wave optics verified
 against the transfer-matrix limit, shows that
-none is limited by optical collection under defect-free interfaces; each is
+none is limited by optical collection under defect-free interfaces. Each is
 limited by a band-offset cliff at a transport interface, and the four
 partition into electron-contact and hole-contact cliff classes. Every
 optical result closes its energy budget exactly, agrees between two
 independent photocurrent routes, and is verified against an analytic
-transfer-matrix limit -- a discipline that exposed and corrected a geometric
+transfer-matrix limit, a discipline that exposed and corrected a geometric
 idealization which would otherwise have silently inflated one absorber's
 photocurrent by $4\,\%$. Parasitic absorption in
 the transparent conductor is a first-order loss in every device.
