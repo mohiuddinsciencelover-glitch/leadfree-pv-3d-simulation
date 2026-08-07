@@ -186,7 +186,7 @@ parameter-free relation; \textbf{[SWEPT]} treated as a sensitivity axis.
 Quantity & \BZS & \FASnI & \CABB & \CABI & Status \\
 \midrule
 $E_g$ (eV)        & 1.88 & 1.41 & 2.32 & 2.03$^{a}$ & [THEO]/[EXP] \\
-$\chi$ (eV)       & 4.1  & 3.50 & 4.0  & 3.22 & \textbf{[SWEPT]} \\
+$\chi$ (eV)       & 4.1 (3.9, 4.0) & 3.50 (3.75, 4.0) & 4.0 (3.79, 4.19) & 3.22 (3.16, 3.36) & \textbf{[SWEPT]}$^{b}$ \\
 $m_e^*/m_0$       & 0.3  & 0.3  & 0.33 & 0.6  & [THEO] \\
 $m_h^*/m_0$       & 0.9  & 0.9  & 0.84 & 1.0  & [THEO] \\
 $\tau_\mathrm{SRH}$ & 1/33\,ns & 43/123\,ns & 13.7\,ns/1\,$\mu$s & 33/3.3\,ns & \textbf{[SWEPT]} \\
@@ -199,7 +199,11 @@ $B_\mathrm{rad}$ (cm$^3$s$^{-1}$) & $\mathbf{5.37{\times}10^{-12}}$ & $7.99{\tim
 
 \vspace{2pt}
 {\footnotesize All values read back from the saved models. $^{b}$Format:
-base value (alternates swept).}
+base value (alternates swept). The near-intrinsic \BZS{} donor density is
+the deliberate literature value for optimized low-defect processing; the
+conventional high-temperature-sulfurization range ($10^{19}$--$10^{20}\,
+\mathrm{cm^{-3}}$) exceeds $N_c$ and is incompatible with the Boltzmann
+statistics used here.}
 
 \vspace{2pt}
 {\footnotesize $^{a}$Transport-model value, read back from the saved model;
@@ -236,7 +240,7 @@ value, a Spiro hole mobility of $2\times10^{4}\,\mathrm{cm^2V^{-1}s^{-1}}$
 orders of magnitude above the well-established
 ${\sim}10^{-4}\,\mathrm{cm^2V^{-1}s^{-1}}$ for this material. Both
 disagreements and the rejection were confirmed against each paper's own
-tables during the citation audit. The HTL acceptor doping is the saved-model
+tables. The HTL acceptor doping is the saved-model
 value ($1\times10^{18}\,\mathrm{cm^{-3}}$); see the reproducibility caution
 below.
 
@@ -310,7 +314,8 @@ absorptance alone -- the metric of Table~S5 and Fig.~S7); (ii) the same pipeline
 profile $G(z)$, including the AM1.5G bin weighting, to $0.10\,\%$ with
 identical photocurrent; (iii) only then was the thick-contact spectrum and
 $G(z)$ emitted and the \CABB{} transport re-solved on it. Corrected numbers:
-ceiling $2.546\rightarrow2.440$\percm{} ($-4.2\,\%$), device
+ceiling $2.546\rightarrow2.440$\percm{} (the truncated value overstated
+the ceiling by $4.3\,\%$), device
 $J_\mathrm{sc}$ $2.473\rightarrow2.371$\percm, PCE
 $1.22\rightarrow1.17\,\%$; collection is unchanged ($97.2\,\%$). The
 $45\,$nm-truncation figure of $2.546$ appears nowhere in the main text
@@ -341,8 +346,12 @@ A $36\,\%$ swing for a $2.4\,\%$ change in element count. The remedy is to
 mesh $x=0$ with a free-triangular operation, copy that mesh onto $x=L$, repeat
 for $y$, and only then fill with tetrahedra; feature order matters because the
 $x$ and $y$ faces share the cell's vertical edges. After the fix the same
-comparison gives $0.783103$ versus $0.782888$ ($0.03\,\%$), and the energy
-budget closes to $0.03\,\%$ instead of $1.2\,\%$.
+comparison gives $0.783103$ versus $0.782888$ ($0.03\,\%$). The global
+energy budget also improves, from $1.2\,\%$ to $0.03\,\%$ -- but note that
+even the defective mesh sat comfortably inside the $\pm2\,\%$ acceptance
+band while the layer partition was wrong by $36\,\%$: the residual shifts,
+but far too weakly to be diagnostic, which is precisely why it cannot serve
+as the detector.
 
 \textbf{The energy-conservation residual does not detect this defect.} It
 compares total absorbed power against total incident flux and is insensitive
@@ -446,7 +455,7 @@ Generation & $J_\mathrm{sc}$ & $V_\mathrm{oc}$ (V) & FF & PCE \\
 \midrule
 above-gap only (floor)        &  9.442 & 1.367 & 0.541 & $6.98\,\%$ \\
 artifact-free (defensible)    & 14.032 & 1.382 & 0.521 & $10.10\,\%$ \\
-full collection (as Table~II) & 15.017 & 1.384 & 0.518 & $10.76\,\%$ \\
+full collection (as Table~I, main text) & 15.017 & 1.384 & 0.518 & $10.76\,\%$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -454,7 +463,8 @@ full collection (as Table~II) & 15.017 & 1.384 & 0.518 & $10.76\,\%$ \\
 The decomposition separates two very different quantities: the construction
 artifact alone is worth $0.66$ absolute PCE points, and the assumption that
 genuine tail states collect like band carriers a further $3.12$ points. The
-artifact-free $10.10\,\%$ is the defensible central value; Table~II retains
+artifact-free $10.10\,\%$ is the defensible central value; Table~I of the
+main text retains
 the full-collection number for cross-absorber consistency, with this bracket
 qualifying it.
 

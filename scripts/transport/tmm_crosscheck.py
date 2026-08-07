@@ -201,7 +201,9 @@ if __name__ == '__main__':
         ax.grid(True, color=S.GRID, lw=0.4)
         ax.text(0.03, 0.93, PRETTY[A], transform=ax.transAxes, fontsize=8,
                 fontweight='bold', va='top')
-        ax.text(0.03, 0.80, f'max $|\\Delta A|$ = {np.abs(dA).max():.4f}',
+        mx = np.abs(dA).max()
+        ax.text(0.03, 0.80,
+                f'max $|\\Delta A|$ = {mx*1e4:.1f}$\\times10^{{-4}}$',
                 transform=ax.transAxes, fontsize=6.5, va='top', color=S.INK_2)
     for ax in axs[1, :]:
         ax.set_xlabel('Wavelength (nm)')

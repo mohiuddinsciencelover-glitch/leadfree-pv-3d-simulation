@@ -3,7 +3,7 @@
 Simulation inputs, results, analysis scripts and figure code for:
 
 > **Interface Band Offsets, Not Optical Collection, Limit Four Chemically
-> Distinct Lead-Free Absorbers: A Full-Wave 3-D Opto-Electro-Thermal Study**
+> Distinct Lead-Free Absorbers**
 > Md. Mohiuddin and Alamgir Kabir, Department of Physics, University of Dhaka.
 
 Four lead-free absorbers — BaZrS₃, FASnI₃, Cs₂AgBiBr₆ and Cu₂AgBiI₆ — are
