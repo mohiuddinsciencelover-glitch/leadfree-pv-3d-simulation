@@ -1,7 +1,8 @@
 # Reproducing this study
 
-This document reproduces every number in *"Interface Band Offsets, Not Optical
-Collection, Limit Four Chemically Distinct Lead-Free Absorbers"* from the
+This document reproduces every number in *"Coupled Opto-Electrical Simulation Identifies
+Interface Band Offsets as the Common Limit Across Four Lead-Free Perovskite
+Solar-Cell Absorbers"* from the
 archived inputs. It is written to be followed by someone who has COMSOL and has
 never seen this project.
 
